@@ -123,9 +123,9 @@ trait Categorizable
     /**
      * Scope query with all the given categories.
      *
-     * @param \Illuminate\Database\Eloquent\Builder                   $query
+     * @param \Illuminate\Database\Eloquent\Builder                        $query
      * @param int|string|array|\ArrayAccess|\Rinvex\Categorizable\Category $categories
-     * @param string                                                  $column
+     * @param string                                                       $column
      *
      * @return \Illuminate\Database\Eloquent\Builder
      */
@@ -146,9 +146,9 @@ trait Categorizable
     /**
      * Scope query with any of the given categories.
      *
-     * @param \Illuminate\Database\Eloquent\Builder                   $query
+     * @param \Illuminate\Database\Eloquent\Builder                        $query
      * @param int|string|array|\ArrayAccess|\Rinvex\Categorizable\Category $categories
-     * @param string                                                  $column
+     * @param string                                                       $column
      *
      * @return \Illuminate\Database\Eloquent\Builder
      */
@@ -165,9 +165,9 @@ trait Categorizable
     /**
      * Scope query with any of the given categories.
      *
-     * @param \Illuminate\Database\Eloquent\Builder                   $query
+     * @param \Illuminate\Database\Eloquent\Builder                        $query
      * @param int|string|array|\ArrayAccess|\Rinvex\Categorizable\Category $categories
-     * @param string                                                  $column
+     * @param string                                                       $column
      *
      * @return \Illuminate\Database\Eloquent\Builder
      */
@@ -179,9 +179,9 @@ trait Categorizable
     /**
      * Scope query without the given categories.
      *
-     * @param \Illuminate\Database\Eloquent\Builder                   $query
+     * @param \Illuminate\Database\Eloquent\Builder                        $query
      * @param int|string|array|\ArrayAccess|\Rinvex\Categorizable\Category $categories
-     * @param string                                                  $column
+     * @param string                                                       $column
      *
      * @return \Illuminate\Database\Eloquent\Builder
      */
@@ -351,7 +351,7 @@ trait Categorizable
      * Set the given category(ies) to the model.
      *
      * @param int|string|array|\ArrayAccess|\Rinvex\Categorizable\Category $categories
-     * @param string                                                  $action
+     * @param string                                                       $action
      *
      * @return void
      */
