@@ -102,11 +102,11 @@ class Category extends Model
     {
         parent::__construct($attributes);
 
-        $this->setTable(config('rinvex.category.tables.categories'));
+        $this->setTable(config('rinvex.categorizable.tables.categories'));
         $this->setRules([
             'name' => 'required|string',
             'description' => 'nullable|string',
-            'slug' => 'required|alpha_dash|unique:'.config('rinvex.category.tables.categories').',slug',
+            'slug' => 'required|alpha_dash|unique:'.config('rinvex.categorizable.tables.categories').',slug',
         ]);
     }
 
@@ -140,7 +140,7 @@ class Category extends Model
      */
     public function entries(string $class): MorphToMany
     {
-        return $this->morphedByMany($class, 'categorizable', config('rinvex.category.tables.categorizables'), 'category_id', 'categorizable_id');
+        return $this->morphedByMany($class, 'categorizable', config('rinvex.categorizable.tables.categorizables'), 'category_id', 'categorizable_id');
     }
 
     /**

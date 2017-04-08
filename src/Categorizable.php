@@ -67,7 +67,7 @@ trait Categorizable
      */
     public function categories(): MorphToMany
     {
-        return $this->morphToMany(static::getCategoryClassName(), 'categorizable', config('rinvex.category.tables.categorizables'), 'categorizable_id', 'category_id')->withTimestamps();
+        return $this->morphToMany(static::getCategoryClassName(), 'categorizable', config('rinvex.categorizable.tables.categorizables'), 'categorizable_id', 'category_id')->withTimestamps();
     }
 
     /**
@@ -364,13 +364,13 @@ trait Categorizable
         $categories = static::hydrateCategories($categories)->pluck('id')->toArray();
 
         // Fire the category syncing event
-        static::$dispatcher->dispatch("rinvex.category.{$event}ing", [$this, $categories]);
+        static::$dispatcher->dispatch("rinvex.categorizable.{$event}ing", [$this, $categories]);
 
         // Set categories
         $this->categories()->$action($categories);
 
         // Fire the category synced event
-        static::$dispatcher->dispatch("rinvex.category.{$event}ed", [$this, $categories]);
+        static::$dispatcher->dispatch("rinvex.categorizable.{$event}ed", [$this, $categories]);
     }
 
     /**

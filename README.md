@@ -183,12 +183,12 @@ $category->entries(\App\Post::class);
 
 You can listen to the following events fired whenever there's an action on categories:
 
-- rinvex.category.attaching
-- rinvex.category.attached
-- rinvex.category.detaching
-- rinvex.category.detached
-- rinvex.category.syncing
-- rinvex.category.synced
+- rinvex.categorizable.attaching
+- rinvex.categorizable.attached
+- rinvex.categorizable.detaching
+- rinvex.categorizable.detached
+- rinvex.categorizable.syncing
+- rinvex.categorizable.synced
 
 ### Query Scopes
 

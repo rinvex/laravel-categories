@@ -14,7 +14,7 @@ class CategorizableServiceProvider extends ServiceProvider
     public function register()
     {
         // Merge config
-        $this->mergeConfigFrom(realpath(__DIR__.'/../config/config.php'), 'rinvex.category');
+        $this->mergeConfigFrom(realpath(__DIR__.'/../config/config.php'), 'rinvex.categorizable');
     }
 
     /**
@@ -40,7 +40,7 @@ class CategorizableServiceProvider extends ServiceProvider
     {
         // Publish config
         $this->publishes([
-            realpath(__DIR__.'/../config/config.php') => config_path('rinvex.category.php'),
+            realpath(__DIR__.'/../config/config.php') => config_path('rinvex.categorizable.php'),
         ], 'config');
 
         // Publish migrations

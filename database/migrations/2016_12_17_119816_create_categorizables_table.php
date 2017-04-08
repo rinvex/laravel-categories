@@ -15,7 +15,7 @@ class CreateCategorizablesTable extends Migration
      */
     public function up()
     {
-        Schema::create(config('rinvex.category.tables.categorizables'), function (Blueprint $table) {
+        Schema::create(config('rinvex.categorizable.tables.categorizables'), function (Blueprint $table) {
             // Columns
             $table->unsignedInteger('category_id');
             $table->unsignedInteger('categorizable_id');
@@ -36,6 +36,6 @@ class CreateCategorizablesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists(config('rinvex.category.tables.categorizables'));
+        Schema::dropIfExists(config('rinvex.categorizable.tables.categorizables'));
     }
 }
