@@ -11,8 +11,8 @@ models out of the box.
 [![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/g/rinvex/categorizable.svg?label=Scrutinizer&style=flat-square)](https://scrutinizer-ci.com/g/rinvex/categorizable/)
 [![Code Climate](https://img.shields.io/codeclimate/github/rinvex/categorizable.svg?label=CodeClimate&style=flat-square)](https://codeclimate.com/github/rinvex/categorizable)
 [![Travis](https://img.shields.io/travis/rinvex/categorizable.svg?label=TravisCI&style=flat-square)](https://travis-ci.org/rinvex/categorizable)
-[![SensioLabs Insight](https://img.shields.io/sensiolabs/i/f2dca242-eb65-4bcc-8481-cd27ea16c804.svg?label=SensioLabs&style=flat-square)](https://insight.sensiolabs.com/projects/f2dca242-eb65-4bcc-8481-cd27ea16c804)
-[![StyleCI](https://styleci.io/repos/66037019/shield)](https://styleci.io/repos/66037019)
+[![SensioLabs Insight](https://img.shields.io/sensiolabs/i/109d4cb7-3826-468d-ae82-5c936a8dae2d.svg?label=SensioLabs&style=flat-square)](https://insight.sensiolabs.com/projects/109d4cb7-3826-468d-ae82-5c936a8dae2d)
+[![StyleCI](https://styleci.io/repos/87599972/shield)](https://styleci.io/repos/87599972)
 [![License](https://img.shields.io/packagist/l/rinvex/categorizable.svg?label=License&style=flat-square)](https://github.com/rinvex/categorizable/blob/develop/LICENSE)
 
 
