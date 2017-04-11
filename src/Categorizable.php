@@ -89,7 +89,7 @@ trait Categorizable
     }
 
     /**
-     * Save attached category(ies) to the model.
+     * Boot the categorizable trait for a model.
      *
      * @return void
      */
