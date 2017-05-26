@@ -17,8 +17,8 @@ class CreateCategorizablesTable extends Migration
     {
         Schema::create(config('rinvex.categorizable.tables.categorizables'), function (Blueprint $table) {
             // Columns
-            $table->unsignedInteger('category_id');
-            $table->unsignedInteger('categorizable_id');
+            $table->integer('category_id')->unsigned();
+            $table->integer('categorizable_id')->unsigned();
             $table->string('categorizable_type');
             $table->timestamps();
 
