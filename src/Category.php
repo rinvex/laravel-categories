@@ -53,11 +53,6 @@ class Category extends Model
     /**
      * {@inheritdoc}
      */
-    protected $table = 'categories';
-
-    /**
-     * {@inheritdoc}
-     */
     protected $guarded = [
         'id',
         'created_at',
