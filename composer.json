@@ -72,6 +72,11 @@
     "extra": {
         "branch-alias": {
             "dev-master": "1.0-dev"
+        },
+        "laravel": {
+            "providers": [
+                "Rinvex\\Categorizable\\CategorizableServiceProvider"
+            ]
         }
     },
     "minimum-stability": "dev",
