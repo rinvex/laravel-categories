@@ -118,7 +118,7 @@ class Category extends Model
             if (! $category->slug) {
                 if ($category->exists && $category->getSlugOptions()->generateSlugsOnUpdate) {
                     $category->generateSlugOnUpdate();
-                } else if (! $category->exists && $category->getSlugOptions()->generateSlugsOnCreate) {
+                } elseif (! $category->exists && $category->getSlugOptions()->generateSlugsOnCreate) {
                     $category->generateSlugOnCreate();
                 }
             }
