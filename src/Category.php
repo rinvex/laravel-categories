@@ -113,18 +113,16 @@ class Category extends Model
     {
         parent::boot();
 
-        if (isset(static::$dispatcher)) {
-            // Early auto generate slugs before validation
-            static::$dispatcher->listen('eloquent.validating: '.static::class, function (self $model) {
-                if (! $model->slug) {
-                    if ($model->exists) {
-                        $model->generateSlugOnUpdate();
-                    } else {
-                        $model->generateSlugOnCreate();
-                    }
+        // Auto generate slugs early before validation
+        static::registerModelEvent('validating', function (self $category) {
+            if (! $category->slug) {
+                if ($category->exists && $category->getSlugOptions()->generateSlugsOnUpdate) {
+                    $category->generateSlugOnUpdate();
+                } else if (! $category->exists && $category->getSlugOptions()->generateSlugsOnCreate) {
+                    $category->generateSlugOnCreate();
                 }
-            });
-        }
+            }
+        });
     }
 
     /**
