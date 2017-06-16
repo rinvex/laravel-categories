@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Rinvex\Categorizable;
 
 use Spatie\Sluggable\HasSlug;
+use Kalnoy\Nestedset\NestedSet;
 use Kalnoy\Nestedset\NodeTrait;
 use Spatie\Sluggable\SlugOptions;
 use Illuminate\Support\Collection;
@@ -53,10 +54,13 @@ class Category extends Model
     /**
      * {@inheritdoc}
      */
-    protected $guarded = [
-        'id',
-        'created_at',
-        'updated_at',
+    protected $fillable = [
+        'slug',
+        'name',
+        'description',
+        NestedSet::LFT,
+        NestedSet::RGT,
+        NestedSet::PARENT_ID,
     ];
 
     /**
