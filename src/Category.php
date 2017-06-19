@@ -18,30 +18,30 @@ use Illuminate\Database\Eloquent\Relations\MorphToMany;
 /**
  * Rinvex\Categorizable\Category.
  *
- * @property int                                                           $id
- * @property array                                                         $name
- * @property string                                                        $slug
- * @property array                                                         $description
- * @property int                                                           $_lft
- * @property int                                                           $_rgt
- * @property int                                                           $parent_id
- * @property \Carbon\Carbon                                                $created_at
- * @property \Carbon\Carbon                                                $updated_at
- * @property \Carbon\Carbon                                                $deleted_at
- * @property-read \Rinvex\Categorizable\Category                                $parent
+ * @property int                                                                $id
+ * @property string                                                             $slug
+ * @property array                                                              $name
+ * @property array                                                              $description
+ * @property int                                                                $_lft
+ * @property int                                                                $_rgt
+ * @property int|null                                                           $parent_id
+ * @property \Carbon\Carbon|null                                                $created_at
+ * @property \Carbon\Carbon|null                                                $updated_at
+ * @property \Carbon\Carbon|null                                                $deleted_at
  * @property-read \Kalnoy\Nestedset\Collection|\Rinvex\Categorizable\Category[] $children
+ * @property-read \Rinvex\Categorizable\Category|null                           $parent
  *
- * @method static \Illuminate\Database\Query\Builder|\Rinvex\Categorizable\Category whereId($value)
- * @method static \Illuminate\Database\Query\Builder|\Rinvex\Categorizable\Category whereName($value)
- * @method static \Illuminate\Database\Query\Builder|\Rinvex\Categorizable\Category whereSlug($value)
- * @method static \Illuminate\Database\Query\Builder|\Rinvex\Categorizable\Category whereDescription($value)
- * @method static \Illuminate\Database\Query\Builder|\Rinvex\Categorizable\Category whereLft($value)
- * @method static \Illuminate\Database\Query\Builder|\Rinvex\Categorizable\Category whereRgt($value)
- * @method static \Illuminate\Database\Query\Builder|\Rinvex\Categorizable\Category whereParentId($value)
- * @method static \Illuminate\Database\Query\Builder|\Rinvex\Categorizable\Category whereCreatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|\Rinvex\Categorizable\Category whereUpdatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|\Rinvex\Categorizable\Category whereDeletedAt($value)
- * @mixin \Illuminate\Database\Eloquent\Model
+ * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Categorizable\Category whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Categorizable\Category whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Categorizable\Category whereDescription($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Categorizable\Category whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Categorizable\Category whereLft($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Categorizable\Category whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Categorizable\Category whereParentId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Categorizable\Category whereRgt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Categorizable\Category whereSlug($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Categorizable\Category whereUpdatedAt($value)
+ * @mixin \Eloquent
  */
 class Category extends Model
 {
