@@ -41,13 +41,13 @@
     ],
     "require": {
         "php": "^7.0.0",
-        "kalnoy/nestedset": "^4.1.0",
+        "kalnoy/nestedset": "^4.2.0",
         "watson/validating": "^3.0.1",
         "illuminate/support": "~5.4.0|~5.5.0",
         "illuminate/database": "~5.4.0|~5.5.0",
         "rinvex/cacheable": "dev-develop",
-        "spatie/laravel-sluggable": "^1.3.0",
-        "spatie/laravel-translatable": "^1.1.0"
+        "spatie/laravel-sluggable": "^1.5.0",
+        "spatie/laravel-translatable": "^1.3.0"
     },
     "require-dev": {
         "phpunit/phpunit": "^6.0.0",
