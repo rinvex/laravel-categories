@@ -43,15 +43,15 @@
         "php": "^7.0.0",
         "kalnoy/nestedset": "^4.1.0",
         "watson/validating": "^3.0.1",
-        "illuminate/support": "~5.4.0",
-        "illuminate/database": "~5.4.0",
+        "illuminate/support": "~5.4.0|~5.5.0",
+        "illuminate/database": "~5.4.0|~5.5.0",
         "rinvex/cacheable": "dev-develop",
         "spatie/laravel-sluggable": "^1.3.0",
         "spatie/laravel-translatable": "^1.1.0"
     },
     "require-dev": {
-        "phpunit/phpunit": "^5.7.0",
-        "illuminate/container": "~5.4.0"
+        "phpunit/phpunit": "^6.0.0",
+        "illuminate/container": "~5.4.0|~5.5.0"
     },
     "autoload": {
         "classmap": [
@@ -67,11 +67,18 @@
         }
     },
     "config": {
-        "sort-packages": true
+        "preferred-install": "dist",
+        "sort-packages": true,
+        "optimize-autoloader": true
     },
     "extra": {
         "branch-alias": {
             "dev-master": "1.0-dev"
+        },
+        "laravel": {
+            "providers": [
+                "Rinvex\\Categorizable\\CategorizableServiceProvider"
+            ]
         }
     },
     "minimum-stability": "dev",

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Rinvex\Categorizable;
 
 use Spatie\Sluggable\HasSlug;
+use Kalnoy\Nestedset\NestedSet;
 use Kalnoy\Nestedset\NodeTrait;
 use Spatie\Sluggable\SlugOptions;
 use Illuminate\Support\Collection;
@@ -17,30 +18,30 @@ use Illuminate\Database\Eloquent\Relations\MorphToMany;
 /**
  * Rinvex\Categorizable\Category.
  *
- * @property int                                                           $id
- * @property array                                                         $name
- * @property string                                                        $slug
- * @property array                                                         $description
- * @property int                                                           $_lft
- * @property int                                                           $_rgt
- * @property int                                                           $parent_id
- * @property \Carbon\Carbon                                                $created_at
- * @property \Carbon\Carbon                                                $updated_at
- * @property \Carbon\Carbon                                                $deleted_at
- * @property-read \Rinvex\Categorizable\Category                                $parent
+ * @property int                                                                $id
+ * @property string                                                             $slug
+ * @property array                                                              $name
+ * @property array                                                              $description
+ * @property int                                                                $_lft
+ * @property int                                                                $_rgt
+ * @property int|null                                                           $parent_id
+ * @property \Carbon\Carbon|null                                                $created_at
+ * @property \Carbon\Carbon|null                                                $updated_at
+ * @property \Carbon\Carbon|null                                                $deleted_at
  * @property-read \Kalnoy\Nestedset\Collection|\Rinvex\Categorizable\Category[] $children
+ * @property-read \Rinvex\Categorizable\Category|null                           $parent
  *
- * @method static \Illuminate\Database\Query\Builder|\Rinvex\Categorizable\Category whereId($value)
- * @method static \Illuminate\Database\Query\Builder|\Rinvex\Categorizable\Category whereName($value)
- * @method static \Illuminate\Database\Query\Builder|\Rinvex\Categorizable\Category whereSlug($value)
- * @method static \Illuminate\Database\Query\Builder|\Rinvex\Categorizable\Category whereDescription($value)
- * @method static \Illuminate\Database\Query\Builder|\Rinvex\Categorizable\Category whereLft($value)
- * @method static \Illuminate\Database\Query\Builder|\Rinvex\Categorizable\Category whereRgt($value)
- * @method static \Illuminate\Database\Query\Builder|\Rinvex\Categorizable\Category whereParentId($value)
- * @method static \Illuminate\Database\Query\Builder|\Rinvex\Categorizable\Category whereCreatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|\Rinvex\Categorizable\Category whereUpdatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|\Rinvex\Categorizable\Category whereDeletedAt($value)
- * @mixin \Illuminate\Database\Eloquent\Model
+ * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Categorizable\Category whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Categorizable\Category whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Categorizable\Category whereDescription($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Categorizable\Category whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Categorizable\Category whereLft($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Categorizable\Category whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Categorizable\Category whereParentId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Categorizable\Category whereRgt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Categorizable\Category whereSlug($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Categorizable\Category whereUpdatedAt($value)
+ * @mixin \Eloquent
  */
 class Category extends Model
 {
@@ -53,15 +54,13 @@ class Category extends Model
     /**
      * {@inheritdoc}
      */
-    protected $table = 'categories';
-
-    /**
-     * {@inheritdoc}
-     */
-    protected $guarded = [
-        'id',
-        'created_at',
-        'updated_at',
+    protected $fillable = [
+        'slug',
+        'name',
+        'description',
+        NestedSet::LFT,
+        NestedSet::RGT,
+        NestedSet::PARENT_ID,
     ];
 
     /**
@@ -87,7 +86,8 @@ class Category extends Model
     protected $rules = [];
 
     /**
-     * Whether the model should throw a ValidationException if it fails validation.
+     * Whether the model should throw a
+     * ValidationException if it fails validation.
      *
      * @var bool
      */
@@ -104,31 +104,29 @@ class Category extends Model
 
         $this->setTable(config('rinvex.categorizable.tables.categories'));
         $this->setRules([
-            'name' => 'required|string',
+            'name' => 'required|string|max:150',
             'description' => 'nullable|string',
-            'slug' => 'required|alpha_dash|unique:'.config('rinvex.categorizable.tables.categories').',slug',
+            'slug' => 'required|alpha_dash|max:150|unique:'.config('rinvex.categorizable.tables.categories').',slug',
         ]);
     }
 
     /**
      * {@inheritdoc}
      */
-    public static function boot()
+    protected static function boot()
     {
         parent::boot();
 
-        if (isset(static::$dispatcher)) {
-            // Early auto generate slugs before validation
-            static::$dispatcher->listen('eloquent.validating: '.static::class, function ($model, $event) {
-                if (! $model->slug) {
-                    if ($model->exists) {
-                        $model->generateSlugOnCreate();
-                    } else {
-                        $model->generateSlugOnUpdate();
-                    }
+        // Auto generate slugs early before validation
+        static::registerModelEvent('validating', function (self $category) {
+            if (! $category->slug) {
+                if ($category->exists && $category->getSlugOptions()->generateSlugsOnUpdate) {
+                    $category->generateSlugOnUpdate();
+                } elseif (! $category->exists && $category->getSlugOptions()->generateSlugsOnCreate) {
+                    $category->generateSlugOnCreate();
                 }
-            });
-        }
+            }
+        });
     }
 
     /**
