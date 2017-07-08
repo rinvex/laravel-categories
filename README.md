@@ -30,7 +30,7 @@ models out of the box.
 
 3. Add the following service provider to the `'providers'` array inside `app/config/app.php`:
     ```php
-    Rinvex\Categorizable\CategorizableServiceProvider::class
+    Rinvex\Categorizable\CategorizableServiceProvider::class,
     ```
 
 4. **Optionally** you can publish migration and config files by running the following command:
@@ -60,9 +60,7 @@ models out of the box.
 ### Create Your Model
 
 Simply create a new eloquent model, and use `Categorizable` trait:
-``` php
-<?php
-
+```php
 namespace App;
 
 use Rinvex\Categorizable\Category;
