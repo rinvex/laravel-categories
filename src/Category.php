@@ -66,7 +66,22 @@ class Category extends Model
     /**
      * {@inheritdoc}
      */
-    protected $observables = ['validating', 'validated'];
+    protected $casts = [
+        'slug' => 'string',
+        'name' => 'string',
+        'description' => 'string',
+        NestedSet::LFT => 'integer',
+        NestedSet::RGT => 'integer',
+        NestedSet::PARENT_ID => 'integer',
+    ];
+
+    /**
+     * {@inheritdoc}
+     */
+    protected $observables = [
+        'validating',
+        'validated',
+    ];
 
     /**
      * The attributes that are translatable.
