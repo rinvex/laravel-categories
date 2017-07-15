@@ -33,13 +33,13 @@ models out of the box.
     Rinvex\Categorizable\CategorizableServiceProvider::class,
     ```
 
-4. **Optionally** you can publish migration and config files by running the following command:
+4. **Optionally** you can publish migrations and config files by running the following command:
     ```shell
     // Publish migrations
-    php artisan vendor:publish --tag="migrations" --provider="Rinvex\Categorizable\CategorizableServiceProvider"
+    php artisan vendor:publish --tag="rinvex-categorizable-migrations"
 
     // Publish config
-    php artisan vendor:publish --tag="config" --provider="Rinvex\Categorizable\CategorizableServiceProvider"
+    php artisan vendor:publish --tag="rinvex-categorizable-config"
     ```
 
 5. Done!
