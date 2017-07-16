@@ -61,7 +61,7 @@ models out of the box.
 
 Simply create a new eloquent model, and use `Categorizable` trait:
 ```php
-namespace App;
+namespace App\Models;
 
 use Rinvex\Categorizable\Category;
 use Rinvex\Categorizable\Categorizable;
@@ -114,7 +114,7 @@ Category::findManyByNameOrCreate(['My Brand New Category 2', 'My Brand New Categ
 The API is intutive and very straightfarwad, so let's give it a quick look:
 ```php
 // Instantiate your model
-$post = new \App\Post();
+$post = new \App\Models\Post();
 
 // Attach given categories to the model
 $post->categorize(['my-new-category', 'my-brand-new-category']);
@@ -157,7 +157,7 @@ for example you can pass single category slug, single category id, single catego
 an array of category ids, or a collection of category models. It will check input type and behave accordingly. Example:
 
 ```php
-$post = new \App\Post();
+$post = new \App\Models\Post();
 
 $post->hasCategory(1);
 $post->hasCategory([1,2,4]);
@@ -174,7 +174,7 @@ It's very easy to get all models attached to certain category as follows:
 
 ```php
 $category = Category::find(1);
-$category->entries(\App\Post::class);
+$category->entries(\App\Models\Post::class);
 ```
 
 ### Fired Events
@@ -194,16 +194,16 @@ Yes, **Rinvex Categorizable** shipped with few awesome query scopes for your con
 
 ```php
 // Get models with all given categories
-Post::withAllCategories(['my-new-category', 'my-brand-new-category'])->get();
+$postsWithAllCategories = \App\Models\Post::withAllCategories(['my-new-category', 'my-brand-new-category'])->get();
 
 // Get models with any given categories
-Post::withAnyCategories(['my-new-category', 'my-brand-new-category'])->get();
+$postsWithAnyCategories = \App\Models\Post::withAnyCategories(['my-new-category', 'my-brand-new-category'])->get();
 
 // Get models without categories
-Post::withoutCategories(['my-new-category', 'my-brand-new-category'])->get();
+$postsWithoutCategories = \App\Models\Post::withoutCategories(['my-new-category', 'my-brand-new-category'])->get();
 
 // Get models without any categories
-Post::withoutAnyCategories()->get();
+$postsWithoutAnyCategories = \App\Models\Post::withoutAnyCategories()->get();
 ```
 
 ### Category Translations
@@ -504,7 +504,7 @@ $categories = $category->descendants()->pluck('id');
 $categories[] = $category->getKey();
 
 // Get posts
-$posts = Post::withCategories($categories)->get();
+$posts = \App\Models\Post::withCategories($categories)->get();
 ```
 
 #### Including category depth
