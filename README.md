@@ -59,7 +59,7 @@ models out of the box.
 
 ### Create Your Model
 
-Simply create a new eloquent model, and use `Categorizable` trait:
+Simply create a new eloquent model, and use `\Rinvex\Categorizable\Categorizable` trait:
 ```php
 namespace App\Models;
 
