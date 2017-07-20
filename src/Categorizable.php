@@ -67,7 +67,8 @@ trait Categorizable
      */
     public function categories(): MorphToMany
     {
-        return $this->morphToMany(static::getCategoryClassName(), 'categorizable', config('rinvex.categorizable.tables.categorizables'), 'categorizable_id', 'category_id')->withTimestamps();
+        return $this->morphToMany(static::getCategoryClassName(), 'categorizable', config('rinvex.categorizable.tables.categorizables'), 'categorizable_id', 'category_id')
+                    ->withTimestamps();
     }
 
     /**
