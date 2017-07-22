@@ -122,8 +122,8 @@ class Category extends Model
             'name' => 'required|string|max:150',
             'description' => 'nullable|string|max:10000',
             'slug' => 'required|alpha_dash|max:150|unique:'.config('rinvex.categorizable.tables.categories').',slug',
-            NestedSet::LFT => 'required|integer',
-            NestedSet::RGT => 'required|integer',
+            NestedSet::LFT => 'sometimes|required|integer',
+            NestedSet::RGT => 'sometimes|required|integer',
             NestedSet::PARENT_ID => 'nullable|integer',
         ]);
     }
