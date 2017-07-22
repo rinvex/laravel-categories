@@ -60,6 +60,7 @@ models out of the box.
 ### Create Your Model
 
 Simply create a new eloquent model, and use `\Rinvex\Categorizable\Categorizable` trait:
+
 ```php
 namespace App\Models;
 
@@ -71,11 +72,6 @@ use Illuminate\Database\Eloquent\Relations\MorphToMany;
 class Post extends Model
 {
     use Categorizable;
-
-    public function categories(): MorphToMany
-    {
-        return $this->morphToMany(Category::class, 'categorizable');
-    }
 }
 ```
 
@@ -112,6 +108,7 @@ Category::findManyByNameOrCreate(['My Brand New Category 2', 'My Brand New Categ
 ### Manage Your Categorizable Model
 
 The API is intutive and very straightfarwad, so let's give it a quick look:
+
 ```php
 // Instantiate your model
 $post = new \App\Models\Post();
