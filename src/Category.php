@@ -192,7 +192,7 @@ class Category extends Model
      */
     public function setSlugAttribute($value)
     {
-        $this->attributes['slug'] = str_slug($value);
+        $this->attributes['slug'] = str_slug($value, '_');
     }
 
     /**
