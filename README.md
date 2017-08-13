@@ -25,24 +25,10 @@ models out of the box.
 
 2. Execute migrations via the following command:
     ```
-    php artisan migrate --path="vendor/rinvex/categorizable/database/migrations"
+    php artisan rinvex:migrate:categorizable
     ```
 
-3. Add the following service provider to the `'providers'` array inside `app/config/app.php`:
-    ```php
-    Rinvex\Categorizable\CategorizableServiceProvider::class,
-    ```
-
-4. **Optionally** you can publish migrations and config files by running the following command:
-    ```shell
-    // Publish migrations
-    php artisan vendor:publish --tag="rinvex-categorizable-migrations"
-
-    // Publish config
-    php artisan vendor:publish --tag="rinvex-categorizable-config"
-    ```
-
-5. Done!
+3. Done!
 
 
 ## Usage

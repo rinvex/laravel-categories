@@ -5,9 +5,19 @@ declare(strict_types=1);
 namespace Rinvex\Categorizable;
 
 use Illuminate\Support\ServiceProvider;
+use Rinvex\Categorizable\Console\Commands\MigrateCommand;
 
 class CategorizableServiceProvider extends ServiceProvider
 {
+    /**
+     * The commands to be registered.
+     *
+     * @var array
+     */
+    protected $commands = [
+        MigrateCommand::class => 'command.rinvex.categorizable.migrate',
+    ];
+
     /**
      * {@inheritdoc}
      */
@@ -15,6 +25,15 @@ class CategorizableServiceProvider extends ServiceProvider
     {
         // Merge config
         $this->mergeConfigFrom(realpath(__DIR__.'/../config/config.php'), 'rinvex.categorizable');
+
+        // Register artisan commands
+        foreach ($this->commands as $key => $value) {
+            $this->app->singleton($value, function ($app) use ($key) {
+                return new $key();
+            });
+        }
+
+        $this->commands(array_values($this->commands));
     }
 
     /**
