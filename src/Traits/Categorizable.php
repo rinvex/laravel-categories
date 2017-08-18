@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Rinvex\Categorizable;
+namespace Rinvex\Categorizable\Traits;
 
 use Illuminate\Support\Collection;
 use Illuminate\Database\Eloquent\Model;
@@ -74,7 +74,7 @@ trait Categorizable
     /**
      * Attach the given category(ies) to the model.
      *
-     * @param int|string|array|\ArrayAccess|\Rinvex\Categorizable\Category $categories
+     * @param int|string|array|\ArrayAccess|\Rinvex\Categorizable\Models\Category $categories
      *
      * @return void
      */
@@ -125,7 +125,7 @@ trait Categorizable
      * Scope query with all the given categories.
      *
      * @param \Illuminate\Database\Eloquent\Builder                        $builder
-     * @param int|string|array|\ArrayAccess|\Rinvex\Categorizable\Category $categories
+     * @param int|string|array|\ArrayAccess|\Rinvex\Categorizable\Models\Category $categories
      * @param string                                                       $column
      *
      * @return \Illuminate\Database\Eloquent\Builder
@@ -148,7 +148,7 @@ trait Categorizable
      * Scope query with any of the given categories.
      *
      * @param \Illuminate\Database\Eloquent\Builder                        $builder
-     * @param int|string|array|\ArrayAccess|\Rinvex\Categorizable\Category $categories
+     * @param int|string|array|\ArrayAccess|\Rinvex\Categorizable\Models\Category $categories
      * @param string                                                       $column
      *
      * @return \Illuminate\Database\Eloquent\Builder
@@ -167,7 +167,7 @@ trait Categorizable
      * Scope query with any of the given categories.
      *
      * @param \Illuminate\Database\Eloquent\Builder                        $builder
-     * @param int|string|array|\ArrayAccess|\Rinvex\Categorizable\Category $categories
+     * @param int|string|array|\ArrayAccess|\Rinvex\Categorizable\Models\Category $categories
      * @param string                                                       $column
      *
      * @return \Illuminate\Database\Eloquent\Builder
@@ -181,7 +181,7 @@ trait Categorizable
      * Scope query without the given categories.
      *
      * @param \Illuminate\Database\Eloquent\Builder                        $builder
-     * @param int|string|array|\ArrayAccess|\Rinvex\Categorizable\Category $categories
+     * @param int|string|array|\ArrayAccess|\Rinvex\Categorizable\Models\Category $categories
      * @param string                                                       $column
      *
      * @return \Illuminate\Database\Eloquent\Builder
@@ -211,7 +211,7 @@ trait Categorizable
     /**
      * Attach the given category(ies) to the model.
      *
-     * @param int|string|array|\ArrayAccess|\Rinvex\Categorizable\Category $categories
+     * @param int|string|array|\ArrayAccess|\Rinvex\Categorizable\Models\Category $categories
      *
      * @return $this
      */
@@ -225,7 +225,7 @@ trait Categorizable
     /**
      * Sync the given category(ies) to the model.
      *
-     * @param int|string|array|\ArrayAccess|\Rinvex\Categorizable\Category|null $categories
+     * @param int|string|array|\ArrayAccess|\Rinvex\Categorizable\Models\Category|null $categories
      *
      * @return $this
      */
@@ -239,7 +239,7 @@ trait Categorizable
     /**
      * Detach the given category(ies) from the model.
      *
-     * @param int|string|array|\ArrayAccess|\Rinvex\Categorizable\Category $categories
+     * @param int|string|array|\ArrayAccess|\Rinvex\Categorizable\Models\Category $categories
      *
      * @return $this
      */
@@ -253,7 +253,7 @@ trait Categorizable
     /**
      * Determine if the model has any the given categories.
      *
-     * @param int|string|array|\ArrayAccess|\Rinvex\Categorizable\Category $categories
+     * @param int|string|array|\ArrayAccess|\Rinvex\Categorizable\Models\Category $categories
      *
      * @return bool
      */
@@ -295,7 +295,7 @@ trait Categorizable
     /**
      * Determine if the model has any the given categories.
      *
-     * @param int|string|array|\ArrayAccess|\Rinvex\Categorizable\Category $categories
+     * @param int|string|array|\ArrayAccess|\Rinvex\Categorizable\Models\Category $categories
      *
      * @return bool
      */
@@ -307,7 +307,7 @@ trait Categorizable
     /**
      * Determine if the model has all of the given categories.
      *
-     * @param int|string|array|\ArrayAccess|\Rinvex\Categorizable\Category $categories
+     * @param int|string|array|\ArrayAccess|\Rinvex\Categorizable\Models\Category $categories
      *
      * @return bool
      */
@@ -351,7 +351,7 @@ trait Categorizable
     /**
      * Set the given category(ies) to the model.
      *
-     * @param int|string|array|\ArrayAccess|\Rinvex\Categorizable\Category $categories
+     * @param int|string|array|\ArrayAccess|\Rinvex\Categorizable\Models\Category $categories
      * @param string                                                       $action
      *
      * @return void
@@ -377,7 +377,7 @@ trait Categorizable
     /**
      * Hydrate categories.
      *
-     * @param int|string|array|\ArrayAccess|\Rinvex\Categorizable\Category $categories
+     * @param int|string|array|\ArrayAccess|\Rinvex\Categorizable\Models\Category $categories
      *
      * @return \Illuminate\Support\Collection
      */
@@ -395,7 +395,7 @@ trait Categorizable
     /**
      * Determine if the given category(ies) are string based.
      *
-     * @param int|string|array|\ArrayAccess|\Rinvex\Categorizable\Category $categories
+     * @param int|string|array|\ArrayAccess|\Rinvex\Categorizable\Models\Category $categories
      *
      * @return bool
      */
@@ -407,7 +407,7 @@ trait Categorizable
     /**
      * Determine if the given category(ies) are integer based.
      *
-     * @param int|string|array|\ArrayAccess|\Rinvex\Categorizable\Category $categories
+     * @param int|string|array|\ArrayAccess|\Rinvex\Categorizable\Models\Category $categories
      *
      * @return bool
      */

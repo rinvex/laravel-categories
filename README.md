@@ -45,14 +45,14 @@ models out of the box.
 
 ### Create Your Model
 
-Simply create a new eloquent model, and use `\Rinvex\Categorizable\Categorizable` trait:
+Simply create a new eloquent model, and use `\Rinvex\Categorizable\Traits\Categorizable` trait:
 
 ```php
 namespace App\Models;
 
-use Rinvex\Categorizable\Category;
-use Rinvex\Categorizable\Categorizable;
 use Illuminate\Database\Eloquent\Model;
+use Rinvex\Categorizable\Models\Category;
+use Rinvex\Categorizable\Traits\Categorizable;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
 
 class Post extends Model
@@ -64,7 +64,7 @@ class Post extends Model
 ### Manage Your Categories
 
 ```php
-use Rinvex\Categorizable\Category;
+use Rinvex\Categorizable\Models\Category;
 
 // Create a new category by name
 Category::createByName('My New Category');

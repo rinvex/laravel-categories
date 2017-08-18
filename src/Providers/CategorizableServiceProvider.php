@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Rinvex\Categorizable;
+namespace Rinvex\Categorizable\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Rinvex\Categorizable\Console\Commands\MigrateCommand;
