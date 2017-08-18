@@ -69,8 +69,6 @@ class Category extends Model
      */
     protected $casts = [
         'slug' => 'string',
-        'name' => 'string',
-        'description' => 'string',
         NestedSet::LFT => 'integer',
         NestedSet::RGT => 'integer',
         NestedSet::PARENT_ID => 'integer',
