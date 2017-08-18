@@ -287,6 +287,6 @@ class Category extends Model
      */
     public function newEloquentBuilder($query)
     {
-        return new EloquentBuilderOverride($query);
+        return new EloquentBuilder($query);
     }
 }
