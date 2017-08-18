@@ -51,23 +51,13 @@ trait Categorizable
     abstract public function morphToMany($related, $name, $table = null, $foreignKey = null, $otherKey = null, $inverse = false);
 
     /**
-     * Get category class name.
-     *
-     * @return string
-     */
-    public static function getCategoryClassName(): string
-    {
-        return Category::class;
-    }
-
-    /**
      * Get all attached categories to the model.
      *
      * @return \Illuminate\Database\Eloquent\Relations\MorphToMany
      */
     public function categories(): MorphToMany
     {
-        return $this->morphToMany(static::getCategoryClassName(), 'categorizable', config('rinvex.categorizable.tables.categorizables'), 'categorizable_id', 'category_id')
+        return $this->morphToMany(config('rinvex.categorizable.models.category'), 'categorizable', config('rinvex.categorizable.tables.categorizables'), 'categorizable_id', 'category_id')
                     ->withTimestamps();
     }
 
@@ -385,8 +375,8 @@ trait Categorizable
     {
         $isCategoriesStringBased = static::isCategoriesStringBased($categories);
         $isCategoriesIntBased = static::isCategoriesIntBased($categories);
+        $className = config('rinvex.categorizable.models.category');
         $field = $isCategoriesStringBased ? 'slug' : 'id';
-        $className = static::getCategoryClassName();
 
         return $isCategoriesStringBased || $isCategoriesIntBased
             ? $className::query()->whereIn($field, (array) $categories)->get() : collect($categories);
