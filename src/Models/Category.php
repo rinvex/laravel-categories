@@ -13,7 +13,6 @@ use Watson\Validating\ValidatingTrait;
 use Illuminate\Database\Eloquent\Model;
 use Rinvex\Cacheable\CacheableEloquent;
 use Spatie\Translatable\HasTranslations;
-use Rinvex\Categorizable\Builders\EloquentBuilder;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
 
 /**
