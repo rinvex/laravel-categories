@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Rinvex\Categorizable;
+namespace Rinvex\Categorizable\Builders;
 
 use Kalnoy\Nestedset\QueryBuilder;
 
@@ -13,7 +13,7 @@ use Kalnoy\Nestedset\QueryBuilder;
  * - NodeTrait::newEloquentBuilder
  * - CacheableEloquent::newEloquentBuilder
  */
-class EloquentBuilderOverride extends QueryBuilder
+class EloquentBuilder extends QueryBuilder
 {
     /**
      * Execute the query as a "select" statement.
