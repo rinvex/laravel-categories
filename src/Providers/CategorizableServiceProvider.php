@@ -24,7 +24,7 @@ class CategorizableServiceProvider extends ServiceProvider
     public function register()
     {
         // Merge config
-        $this->mergeConfigFrom(realpath(__DIR__.'/../config/config.php'), 'rinvex.categorizable');
+        $this->mergeConfigFrom(realpath(__DIR__.'/../../config/config.php'), 'rinvex.categorizable');
 
         // Register artisan commands
         foreach ($this->commands as $key => $value) {
