@@ -39,16 +39,20 @@ trait Categorizable
     /**
      * Define a polymorphic many-to-many relationship.
      *
-     * @param string      $related
-     * @param string      $name
-     * @param string|null $table
-     * @param string|null $foreignKey
-     * @param string|null $otherKey
-     * @param bool        $inverse
+     * @param string $related
+     * @param string $name
+     * @param string $table
+     * @param string $foreignPivotKey
+     * @param string $relatedPivotKey
+     * @param string $parentKey
+     * @param string $relatedKey
+     * @param bool   $inverse
      *
      * @return \Illuminate\Database\Eloquent\Relations\MorphToMany
      */
-    abstract public function morphToMany($related, $name, $table = null, $foreignKey = null, $otherKey = null, $inverse = false);
+    abstract public function morphToMany($related, $name, $table = null, $foreignPivotKey = null,
+                                         $relatedPivotKey = null, $parentKey = null,
+                                         $relatedKey = null, $inverse = false);
 
     /**
      * Get all attached categories to the model.
