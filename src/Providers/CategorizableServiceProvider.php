@@ -26,6 +26,11 @@ class CategorizableServiceProvider extends ServiceProvider
         // Merge config
         $this->mergeConfigFrom(realpath(__DIR__.'/../../config/config.php'), 'rinvex.categorizable');
 
+        // Register eloquent models
+        $this->app->singleton('rinvex.categorizable.category', function ($app) {
+            return new $app['config']['rinvex.categorizable.models.category']();
+        });
+
         // Register artisan commands
         foreach ($this->commands as $key => $value) {
             $this->app->singleton($value, function ($app) use ($key) {

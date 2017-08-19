@@ -51,7 +51,6 @@ Simply create a new eloquent model, and use `\Rinvex\Categorizable\Traits\Catego
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Rinvex\Categorizable\Models\Category;
 use Rinvex\Categorizable\Traits\Categorizable;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
 
@@ -64,25 +63,23 @@ class Post extends Model
 ### Manage Your Categories
 
 ```php
-use Rinvex\Categorizable\Models\Category;
-
 // Create a new category by name
-Category::createByName('My New Category');
+app('rinvex.categorizable.category')->createByName('My New Category');
 
 // Create a new category by translation
-Category::createByName('تصنيف جديد', 'ar');
+app('rinvex.categorizable.category')->createByName('تصنيف جديد', 'ar');
 
 // Get existing category by name
-Category::findByName('My New Category');
+app('rinvex.categorizable.category')->findByName('My New Category');
 
 // Get existing category by translation
-Category::findByName('تصنيف جديد', 'ar');
+app('rinvex.categorizable.category')->findByName('تصنيف جديد', 'ar');
 
 // Find category by name or create if not exists
-Category::findByNameOrCreate('My Brand New Category');
+app('rinvex.categorizable.category')->findByNameOrCreate('My Brand New Category');
 
 // Find many categories by name or create if not exists
-Category::findManyByNameOrCreate(['My Brand New Category 2', 'My Brand New Category 3']);
+app('rinvex.categorizable.category')->findManyByNameOrCreate(['My Brand New Category 2', 'My Brand New Category 3']);
 ```
 
 > **Notes:** since **Rinvex Categorizable** extends and utilizes other awesome packages, checkout the following
@@ -130,7 +127,7 @@ $post->recategorize(['my-new-category', 'my-brand-new-category']);
 can pass it explicitly through normal eloquent `create` method, as follows:
 
 ```php
-Category::create(['name' => ['en' => 'My New Category'], 'slug' => 'custom-category-slug']);
+app('rinvex.categorizable.category')->create(['name' => ['en' => 'My New Category'], 'slug' => 'custom-category-slug']);
 ```
 
 ### Smart Parameter Detection
@@ -146,8 +143,8 @@ $post->hasCategory(1);
 $post->hasCategory([1,2,4]);
 $post->hasCategory('my-new-category');
 $post->hasCategory(['my-new-category', 'my-brand-new-category']);
-$post->hasCategory(Category::where('slug', 'my-new-category')->first());
-$post->hasCategory(Category::whereIn('id', [5,6,7])->get());
+$post->hasCategory(app('rinvex.categorizable.category')->where('slug', 'my-new-category')->first());
+$post->hasCategory(app('rinvex.categorizable.category')->whereIn('id', [5,6,7])->get());
 ```
 **Rinvex Categorizable** can understand any of the above parameter syntax and interpret it correctly, same for other methods in this package.
 
@@ -156,7 +153,7 @@ $post->hasCategory(Category::whereIn('id', [5,6,7])->get());
 It's very easy to get all models attached to certain category as follows:
 
 ```php
-$category = Category::find(1);
+$category = app('rinvex.categorizable.category')->find(1);
 $category->entries(\App\Models\Post::class);
 ```
 
@@ -194,7 +191,7 @@ $postsWithoutAnyCategories = \App\Models\Post::withoutAnyCategories()->get();
 Manage category translations with ease as follows:
 
 ```php
-$category = Category::find(1);
+$category = app('rinvex.categorizable.category')->find(1);
 
 // Set category translation
 $category->setTranslation('name', 'en', 'Name in English');
@@ -256,9 +253,9 @@ if ($category->save()) {
 When you simply create a category, it will be appended to the end of the tree:
 
 ```php
-Category::createByName('Additional Category'); // Saved as root
+app('rinvex.categorizable.category')->createByName('Additional Category'); // Saved as root
 
-Category::create($attributes); // Saved as root
+app('rinvex.categorizable.category')->create($attributes); // Saved as root
 
 $category = new Category($attributes);
 $category->save(); // Saved as root
@@ -301,7 +298,7 @@ $category->parent_id = $parent->id;
 $category->save();
 
 // #7 Using static method
-Category::create($attributes, $parent);
+app('rinvex.categorizable.category')->create($attributes, $parent);
 ```
 
 And only a couple ways to prepend:
@@ -336,7 +333,7 @@ When using static method `create` on category, it checks whether attributes cont
 If it does, it creates more categories recursively, as follows:
 
 ```php
-$category = Category::create([
+$category = app('rinvex.categorizable.category')->create([
     'name' => [
         'en' => 'New Category Name',
     ],
@@ -366,7 +363,7 @@ $data = [
     [ 'name' => 'bar' ],
 ];
 
-Category::rebuildTree($data, $delete);
+app('rinvex.categorizable.category')->rebuildTree($data, $delete);
 ```
 
 There is an id specified for category with the name of `foo` which means that existing
@@ -396,7 +393,7 @@ $result = $category->getAncestors();
 $result = $category->ancestors()->get();
 
 // #3 Getting ancestors by primary key
-$result = Category::ancestorsOf($id);
+$result = app('rinvex.categorizable.category')->ancestorsOf($id);
 ```
 
 #### Descendants
@@ -412,16 +409,16 @@ $result = $category->descendants;
 $result = $category->descendants()->get();
 
 // #3 Getting descendants by primary key
-$result = Category::descendantsOf($id);
+$result = app('rinvex.categorizable.category')->descendantsOf($id);
 
 // #3 Get descendants and the category by id
-$result = Category::descendantsAndSelf($id);
+$result = app('rinvex.categorizable.category')->descendantsAndSelf($id);
 ```
 
 Descendants can be eagerly loaded:
 
 ```php
-$categories = Category::with('descendants')->whereIn('id', $idList)->get();
+$categories = app('rinvex.categorizable.category')->with('descendants')->whereIn('id', $idList)->get();
 ```
 
 #### Siblings
@@ -495,7 +492,7 @@ $posts = \App\Models\Post::withCategories($categories)->get();
 If you need to know at which level the category is:
 
 ```php
-$result = Category::withDepth()->find($id);
+$result = app('rinvex.categorizable.category')->withDepth()->find($id);
 
 $depth = $result->depth;
 ```
@@ -504,7 +501,7 @@ Root category will be at level 0. Children of root categories will have a level 
 To get categories of specified level, you can apply `having` constraint:
 
 ```php
-$result = Category::withDepth()->having('depth', '=', 1)->get();
+$result = app('rinvex.categorizable.category')->withDepth()->having('depth', '=', 1)->get();
 ```
 
 #### Default order
@@ -515,13 +512,13 @@ on the query builder:
 
 ```php
 // All categories will now be ordered by lft value
-$result = Category::defaultOrder()->get();
+$result = app('rinvex.categorizable.category')->defaultOrder()->get();
 ```
 
 You can get categories in reversed order:
 
 ```php
-$result = Category::reversed()->get();
+$result = app('rinvex.categorizable.category')->reversed()->get();
 ```
 
 ##### Shifting a category
@@ -549,19 +546,19 @@ Various constraints that can be applied to the query builder:
 Descendants constraints:
 
 ```php
-$result = Category::whereDescendantOf($category)->get();
-$result = Category::whereNotDescendantOf($category)->get();
-$result = Category::orWhereDescendantOf($category)->get();
-$result = Category::orWhereNotDescendantOf($category)->get();
+$result = app('rinvex.categorizable.category')->whereDescendantOf($category)->get();
+$result = app('rinvex.categorizable.category')->whereNotDescendantOf($category)->get();
+$result = app('rinvex.categorizable.category')->orWhereDescendantOf($category)->get();
+$result = app('rinvex.categorizable.category')->orWhereNotDescendantOf($category)->get();
 
 // Include target category into result set
-$result = Category::whereDescendantOrSelf($category)->get();
+$result = app('rinvex.categorizable.category')->whereDescendantOrSelf($category)->get();
 ```
 
 Ancestor constraints:
 
 ```php
-$result = Category::whereAncestorOf($category)->get();
+$result = app('rinvex.categorizable.category')->whereAncestorOf($category)->get();
 ```
 
 `$category` can be either a primary key of the model or model instance.
@@ -571,14 +568,14 @@ $result = Category::whereAncestorOf($category)->get();
 After getting a set of categories, you can convert it to tree. For example:
 
 ```php
-$tree = Category::get()->toTree();
+$tree = app('rinvex.categorizable.category')->get()->toTree();
 ```
 
 This will fill `parent` and `children` relationships on every category in the set and
 you can render a tree using recursive algorithm:
 
 ```php
-$categories = Category::get()->toTree();
+$categories = app('rinvex.categorizable.category')->get()->toTree();
 
 $traverse = function ($categories, $prefix = '-') use (&$traverse) {
     foreach ($categories as $category) {
@@ -608,7 +605,7 @@ after parent category. This is helpful when you get categories with custom order
 (i.e. alphabetically) and don't want to use recursion to iterate over your categories.
 
 ```php
-$categories = Category::get()->toFlatTree();
+$categories = app('rinvex.categorizable.category')->get()->toFlatTree();
 ```
 
 ##### Getting a subtree
@@ -616,7 +613,7 @@ $categories = Category::get()->toFlatTree();
 Sometimes you don't need whole tree to be loaded and just some subtree of specific category:
 
 ```php
-$root = Category::find($rootId);
+$root = app('rinvex.categorizable.category')->find($rootId);
 $tree = $root->descendants->toTree($root);
 ```
 
@@ -625,7 +622,7 @@ Now `$tree` contains children of `$root` category.
 If you don't need `$root` category itself, do following instead:
 
 ```php
-$tree = Category::descendantsOf($rootId)->toTree($rootId);
+$tree = app('rinvex.categorizable.category')->descendantsOf($rootId)->toTree($rootId);
 ```
 
 ### Deleting categories
@@ -641,7 +638,7 @@ $category->delete();
 **IMPORTANT!** Categories are required to be deleted as models, **don't** try do delete them using a query like so:
 
 ```php
-Category::where('id', '=', $id)->delete();
+app('rinvex.categorizable.category')->where('id', '=', $id)->delete();
 ```
 
 **That will break the tree!**
@@ -669,10 +666,10 @@ You can check whether a tree is broken (i.e. has some structural errors):
 
 ```php
 // Check if tree is broken
-$bool = Category::isBroken();
+$bool = app('rinvex.categorizable.category')->isBroken();
 
 // Get tree error statistics
-$data = Category::countErrors();
+$data = app('rinvex.categorizable.category')->countErrors();
 ```
 
 Tree error statistics will return an array with following keys:
@@ -688,7 +685,7 @@ Category tree can now be fixed if broken. Using inheritance info from `parent_id
 proper `_lft` and `_rgt` values are set for every category.
 
 ```php
-Category::fixTree();
+app('rinvex.categorizable.category')->fixTree();
 ```
 
 

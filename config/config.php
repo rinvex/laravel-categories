@@ -14,7 +14,7 @@ return [
 
     // Categorizable Models
     'models' => [
-        'category' => \Cortex\Categorizable\Models\Category::class,
+        'category' => \Rinvex\Categorizable\Models\Category::class,
     ],
 
 ];
