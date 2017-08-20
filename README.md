@@ -257,7 +257,7 @@ app('rinvex.categorizable.category')->createByName('Additional Category'); // Sa
 
 app('rinvex.categorizable.category')->create($attributes); // Saved as root
 
-$category = new Category($attributes);
+$category = app('rinvex.categorizable.category')->fill($attributes);
 $category->save(); // Saved as root
 ```
 
