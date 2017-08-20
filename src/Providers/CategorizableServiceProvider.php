@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Rinvex\Categorizable\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Rinvex\Categorizable\Models\Category;
 use Rinvex\Categorizable\Console\Commands\MigrateCommand;
 
 class CategorizableServiceProvider extends ServiceProvider
@@ -26,10 +27,11 @@ class CategorizableServiceProvider extends ServiceProvider
         // Merge config
         $this->mergeConfigFrom(realpath(__DIR__.'/../../config/config.php'), 'rinvex.categorizable');
 
-        // Register eloquent models
+        // Bind eloquent models to IoC container
         $this->app->singleton('rinvex.categorizable.category', function ($app) {
             return new $app['config']['rinvex.categorizable.models.category']();
         });
+        $this->app->alias('rinvex.categorizable.category', Category::class);
 
         // Register artisan commands
         foreach ($this->commands as $key => $value) {
