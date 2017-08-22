@@ -19,16 +19,16 @@ use Illuminate\Database\Eloquent\Relations\MorphToMany;
 /**
  * Rinvex\Categorizable\Models\Category.
  *
- * @property int                                                                $id
- * @property string                                                             $slug
- * @property array                                                              $name
- * @property array                                                              $description
- * @property int                                                                $_lft
- * @property int                                                                $_rgt
- * @property int|null                                                           $parent_id
- * @property \Carbon\Carbon|null                                                $created_at
- * @property \Carbon\Carbon|null                                                $updated_at
- * @property \Carbon\Carbon|null                                                $deleted_at
+ * @property int                                                                       $id
+ * @property string                                                                    $slug
+ * @property array                                                                     $name
+ * @property array                                                                     $description
+ * @property int                                                                       $_lft
+ * @property int                                                                       $_rgt
+ * @property int                                                                       $parent_id
+ * @property \Carbon\Carbon                                                            $created_at
+ * @property \Carbon\Carbon                                                            $updated_at
+ * @property \Carbon\Carbon                                                            $deleted_at
  * @property-read \Kalnoy\Nestedset\Collection|\Rinvex\Categorizable\Models\Category[] $children
  * @property-read \Rinvex\Categorizable\Models\Category|null                           $parent
  *
