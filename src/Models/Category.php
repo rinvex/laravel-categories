@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\Model;
 use Rinvex\Cacheable\CacheableEloquent;
 use Spatie\Translatable\HasTranslations;
 use Rinvex\Categorizable\Builders\EloquentBuilder;
+use Rinvex\Categorizable\Contracts\CategoryContract;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
 
 /**
@@ -44,7 +45,7 @@ use Illuminate\Database\Eloquent\Relations\MorphToMany;
  * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Categorizable\Models\Category whereUpdatedAt($value)
  * @mixin \Eloquent
  */
-class Category extends Model
+class Category extends Model implements CategoryContract
 {
     use HasSlug;
     use NodeTrait;

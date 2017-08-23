@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Rinvex\Categorizable\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Rinvex\Categorizable\Models\Category;
+use Rinvex\Categorizable\Contracts\CategoryContract;
 use Rinvex\Categorizable\Console\Commands\MigrateCommand;
 
 class CategorizableServiceProvider extends ServiceProvider
@@ -31,7 +31,7 @@ class CategorizableServiceProvider extends ServiceProvider
         $this->app->singleton('rinvex.categorizable.category', function ($app) {
             return new $app['config']['rinvex.categorizable.models.category']();
         });
-        $this->app->alias('rinvex.categorizable.category', Category::class);
+        $this->app->alias('rinvex.categorizable.category', CategoryContract::class);
 
         // Register console commands
         ! $this->app->runningInConsole() || $this->registerCommands();
