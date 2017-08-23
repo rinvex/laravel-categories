@@ -73,6 +73,7 @@ class Category extends Model implements CategoryContract
         NestedSet::LFT => 'integer',
         NestedSet::RGT => 'integer',
         NestedSet::PARENT_ID => 'integer',
+        'deleted_at' => 'datetime',
     ];
 
     /**
