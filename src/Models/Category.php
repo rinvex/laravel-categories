@@ -137,13 +137,11 @@ class Category extends Model implements CategoryContract
         parent::boot();
 
         // Auto generate slugs early before validation
-        static::registerModelEvent('validating', function (self $category) {
-            if (! $category->slug) {
-                if ($category->exists && $category->getSlugOptions()->generateSlugsOnUpdate) {
-                    $category->generateSlugOnUpdate();
-                } elseif (! $category->exists && $category->getSlugOptions()->generateSlugsOnCreate) {
-                    $category->generateSlugOnCreate();
-                }
+        static::validating(function (self $category) {
+            if ($category->exists && $category->getSlugOptions()->generateSlugsOnUpdate) {
+                $category->generateSlugOnUpdate();
+            } elseif (! $category->exists && $category->getSlugOptions()->generateSlugsOnCreate) {
+                $category->generateSlugOnCreate();
             }
         });
     }
