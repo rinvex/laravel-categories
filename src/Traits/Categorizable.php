@@ -207,7 +207,7 @@ trait Categorizable
      *
      * @param int|string|array|\ArrayAccess|\Rinvex\Categorizable\Models\Category $categories
      *
-     * @return $this
+     * @return static
      */
     public function categorize($categories)
     {
@@ -221,7 +221,7 @@ trait Categorizable
      *
      * @param int|string|array|\ArrayAccess|\Rinvex\Categorizable\Models\Category|null $categories
      *
-     * @return $this
+     * @return static
      */
     public function recategorize($categories)
     {
@@ -235,7 +235,7 @@ trait Categorizable
      *
      * @param int|string|array|\ArrayAccess|\Rinvex\Categorizable\Models\Category $categories
      *
-     * @return $this
+     * @return static
      */
     public function uncategorize($categories)
     {
