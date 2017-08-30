@@ -211,7 +211,7 @@ trait Categorizable
      * @param mixed $categories
      * @param bool  $detaching
      *
-     * @return static
+     * @return $this
      */
     public function syncCategories($categories, bool $detaching = true)
     {
@@ -229,7 +229,7 @@ trait Categorizable
      *
      * @param mixed $categories
      *
-     * @return static
+     * @return $this
      */
     public function attachCategories($categories)
     {
@@ -241,7 +241,7 @@ trait Categorizable
      *
      * @param mixed $categories
      *
-     * @return static
+     * @return $this
      */
     public function detachCategories($categories = null)
     {
