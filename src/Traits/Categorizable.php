@@ -15,7 +15,7 @@ trait Categorizable
     /**
      * Register a saved model event with the dispatcher.
      *
-     * @param  \Closure|string $callback
+     * @param \Closure|string $callback
      *
      * @return void
      */
@@ -168,7 +168,7 @@ trait Categorizable
     /**
      * Determine if the model has any of the given categories.
      *
-     * @param mixed  $categories
+     * @param mixed $categories
      *
      * @return bool
      */
@@ -182,7 +182,7 @@ trait Categorizable
     /**
      * Determine if the model has any the given categories.
      *
-     * @param mixed  $categories
+     * @param mixed $categories
      *
      * @return bool
      */
@@ -194,7 +194,7 @@ trait Categorizable
     /**
      * Determine if the model has all of the given categories.
      *
-     * @param mixed  $categories
+     * @param mixed $categories
      *
      * @return bool
      */
@@ -239,7 +239,7 @@ trait Categorizable
     /**
      * Detach model categories.
      *
-     * @param mixed  $categories
+     * @param mixed $categories
      *
      * @return static
      */
@@ -256,7 +256,7 @@ trait Categorizable
     /**
      * Prepare category IDs.
      *
-     * @param mixed  $categories
+     * @param mixed $categories
      *
      * @return array
      */
