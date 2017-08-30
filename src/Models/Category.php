@@ -8,7 +8,6 @@ use Spatie\Sluggable\HasSlug;
 use Kalnoy\Nestedset\NestedSet;
 use Kalnoy\Nestedset\NodeTrait;
 use Spatie\Sluggable\SlugOptions;
-use Illuminate\Support\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Rinvex\Cacheable\CacheableEloquent;
 use Rinvex\Support\Traits\HasTranslations;
@@ -137,11 +136,11 @@ class Category extends Model implements CategoryContract
         parent::boot();
 
         // Auto generate slugs early before validation
-        static::validating(function (self $category) {
-            if ($category->exists && $category->getSlugOptions()->generateSlugsOnUpdate) {
-                $category->generateSlugOnUpdate();
-            } elseif (! $category->exists && $category->getSlugOptions()->generateSlugsOnCreate) {
-                $category->generateSlugOnCreate();
+        static::validating(function (self $model) {
+            if ($model->exists && $model->getSlugOptions()->generateSlugsOnUpdate) {
+                $model->generateSlugOnUpdate();
+            } elseif (! $model->exists && $model->getSlugOptions()->generateSlugsOnCreate) {
+                $model->generateSlugOnCreate();
             }
         });
     }
@@ -169,79 +168,6 @@ class Category extends Model implements CategoryContract
                           ->doNotGenerateSlugsOnUpdate()
                           ->generateSlugsFrom('name')
                           ->saveSlugsTo('slug');
-    }
-
-    /**
-     * Get category tree.
-     *
-     * @return array
-     */
-    public static function tree(): array
-    {
-        return static::get()->toTree()->toArray();
-    }
-
-    /**
-     * Find many categories by name or create if not exists.
-     *
-     * @param array       $categories
-     * @param string|null $locale
-     *
-     * @return \Illuminate\Support\Collection
-     */
-    public static function findManyByNameOrCreate(array $categories, string $locale = null): Collection
-    {
-        // Expects array of category names
-        return collect($categories)->map(function ($category) use ($locale) {
-            return static::findByNameOrCreate($category, $locale);
-        });
-    }
-
-    /**
-     * Find category by name or create if not exists.
-     *
-     * @param string      $name
-     * @param string|null $locale
-     *
-     * @return static
-     */
-    public static function findByNameOrCreate(string $name, string $locale = null): Category
-    {
-        $locale = $locale ?? app()->getLocale();
-
-        return static::findByName($name, $locale) ?: static::createByName($name, $locale);
-    }
-
-    /**
-     * Find category by name.
-     *
-     * @param string      $name
-     * @param string|null $locale
-     *
-     * @return static|null
-     */
-    public static function findByName(string $name, string $locale = null)
-    {
-        $locale = $locale ?? app()->getLocale();
-
-        return static::query()->where("name->{$locale}", $name)->first();
-    }
-
-    /**
-     * Create category by name.
-     *
-     * @param string      $name
-     * @param string|null $locale
-     *
-     * @return static
-     */
-    public static function createByName(string $name, string $locale = null): Category
-    {
-        $locale = $locale ?? app()->getLocale();
-
-        return static::create([
-            'name' => [$locale => $name],
-        ]);
     }
 
     /**

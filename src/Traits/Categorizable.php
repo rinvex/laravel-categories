@@ -4,28 +4,22 @@ declare(strict_types=1);
 
 namespace Rinvex\Categorizable\Traits;
 
-use Illuminate\Support\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Collection as BaseCollection;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
 
 trait Categorizable
 {
     /**
-     * The Queued categories.
+     * Register a saved model event with the dispatcher.
      *
-     * @var array
-     */
-    protected $queuedCategories = [];
-
-    /**
-     * Register a created model event with the dispatcher.
-     *
-     * @param \Closure|string $callback
+     * @param  \Closure|string $callback
      *
      * @return void
      */
-    abstract public static function created($callback);
+    abstract public static function saved($callback);
 
     /**
      * Register a deleted model event with the dispatcher.
@@ -74,64 +68,38 @@ trait Categorizable
      */
     public function setCategoriesAttribute($categories)
     {
-        if (! $this->exists) {
-            $this->queuedCategories = $categories;
-
-            return;
-        }
-
-        $this->categorize($categories);
+        static::saved(function (self $model) use ($categories) {
+            $model->syncCategories($categories);
+        });
     }
 
     /**
-     * Boot the categorizable trait for a model.
+     * Boot the categorizable trait for the model.
      *
      * @return void
      */
     public static function bootCategorizable()
     {
-        static::created(function (Model $categorizableModel) {
-            if ($categorizableModel->queuedCategories) {
-                $categorizableModel->categorize($categorizableModel->queuedCategories);
-
-                $categorizableModel->queuedCategories = [];
-            }
+        static::deleted(function (self $model) {
+            $model->categories()->detach();
         });
-
-        static::deleted(function (Model $categorizableModel) {
-            $categorizableModel->recategorize(null);
-        });
-    }
-
-    /**
-     * Get the category list.
-     *
-     * @param string $keyColumn
-     *
-     * @return array
-     */
-    public function categoryList(string $keyColumn = 'slug'): array
-    {
-        return $this->categories()->pluck('name', $keyColumn)->toArray();
     }
 
     /**
      * Scope query with all the given categories.
      *
-     * @param \Illuminate\Database\Eloquent\Builder                               $builder
-     * @param int|string|array|\ArrayAccess|\Rinvex\Categorizable\Models\Category $categories
-     * @param string                                                              $column
+     * @param \Illuminate\Database\Eloquent\Builder $builder
+     * @param mixed                                 $categories
      *
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function scopeWithAllCategories(Builder $builder, $categories, string $column = 'slug'): Builder
+    public function scopeWithAllCategories(Builder $builder, $categories): Builder
     {
-        $categories = static::isCategoriesStringBased($categories)
-            ? $categories : static::hydrateCategories($categories)->pluck($column);
+        $categories = $this->prepareCategoryIds($categories);
 
-        collect($categories)->each(function ($category) use ($builder, $column) {
-            $builder->whereHas('categories', function (Builder $builder) use ($category, $column) {
-                return $builder->where($column, $category);
+        collect($categories)->each(function ($category) use ($builder) {
+            $builder->whereHas('categories', function (Builder $builder) use ($category) {
+                return $builder->where('id', $category);
             });
         });
 
@@ -141,52 +109,47 @@ trait Categorizable
     /**
      * Scope query with any of the given categories.
      *
-     * @param \Illuminate\Database\Eloquent\Builder                               $builder
-     * @param int|string|array|\ArrayAccess|\Rinvex\Categorizable\Models\Category $categories
-     * @param string                                                              $column
+     * @param \Illuminate\Database\Eloquent\Builder $builder
+     * @param mixed                                 $categories
      *
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function scopeWithAnyCategories(Builder $builder, $categories, string $column = 'slug'): Builder
+    public function scopeWithAnyCategories(Builder $builder, $categories): Builder
     {
-        $categories = static::isCategoriesStringBased($categories)
-            ? $categories : static::hydrateCategories($categories)->pluck($column);
+        $categories = $this->prepareCategoryIds($categories);
 
-        return $builder->whereHas('categories', function (Builder $builder) use ($categories, $column) {
-            $builder->whereIn($column, (array) $categories);
+        return $builder->whereHas('categories', function (Builder $builder) use ($categories) {
+            $builder->whereIn('id', $categories);
         });
     }
 
     /**
      * Scope query with any of the given categories.
      *
-     * @param \Illuminate\Database\Eloquent\Builder                               $builder
-     * @param int|string|array|\ArrayAccess|\Rinvex\Categorizable\Models\Category $categories
-     * @param string                                                              $column
+     * @param \Illuminate\Database\Eloquent\Builder $builder
+     * @param mixed                                 $categories
      *
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function scopeWithCategories(Builder $builder, $categories, string $column = 'slug'): Builder
+    public function scopeWithCategories(Builder $builder, $categories): Builder
     {
-        return static::scopeWithAnyCategories($builder, $categories, $column);
+        return static::scopeWithAnyCategories($builder, $categories);
     }
 
     /**
-     * Scope query without the given categories.
+     * Scope query without any of the given categories.
      *
-     * @param \Illuminate\Database\Eloquent\Builder                               $builder
-     * @param int|string|array|\ArrayAccess|\Rinvex\Categorizable\Models\Category $categories
-     * @param string                                                              $column
+     * @param \Illuminate\Database\Eloquent\Builder $builder
+     * @param mixed                                 $categories
      *
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function scopeWithoutCategories(Builder $builder, $categories, string $column = 'slug'): Builder
+    public function scopeWithoutCategories(Builder $builder, $categories): Builder
     {
-        $categories = static::isCategoriesStringBased($categories)
-            ? $categories : static::hydrateCategories($categories)->pluck($column);
+        $categories = $this->prepareCategoryIds($categories);
 
-        return $builder->whereDoesntHave('categories', function (Builder $builder) use ($categories, $column) {
-            $builder->whereIn($column, (array) $categories);
+        return $builder->whereDoesntHave('categories', function (Builder $builder) use ($categories) {
+            $builder->whereIn('id', $categories);
         });
     }
 
@@ -203,210 +166,124 @@ trait Categorizable
     }
 
     /**
-     * Attach the given category(ies) to the model.
+     * Determine if the model has any of the given categories.
      *
-     * @param int|string|array|\ArrayAccess|\Rinvex\Categorizable\Models\Category $categories
+     * @param mixed  $categories
      *
-     * @return static
+     * @return bool
      */
-    public function categorize($categories)
+    public function hasCategories($categories): bool
     {
-        static::setCategories($categories, 'syncWithoutDetaching');
+        $categories = $this->prepareCategoryIds($categories);
 
-        return $this;
-    }
-
-    /**
-     * Sync the given category(ies) to the model.
-     *
-     * @param int|string|array|\ArrayAccess|\Rinvex\Categorizable\Models\Category|null $categories
-     *
-     * @return static
-     */
-    public function recategorize($categories)
-    {
-        static::setCategories($categories, 'sync');
-
-        return $this;
-    }
-
-    /**
-     * Detach the given category(ies) from the model.
-     *
-     * @param int|string|array|\ArrayAccess|\Rinvex\Categorizable\Models\Category $categories
-     *
-     * @return static
-     */
-    public function uncategorize($categories)
-    {
-        static::setCategories($categories, 'detach');
-
-        return $this;
+        return ! $this->categories->pluck('id')->intersect($categories)->isEmpty();
     }
 
     /**
      * Determine if the model has any the given categories.
      *
-     * @param int|string|array|\ArrayAccess|\Rinvex\Categorizable\Models\Category $categories
+     * @param mixed  $categories
      *
      * @return bool
      */
-    public function hasCategory($categories): bool
+    public function hasAnyCategories($categories): bool
     {
-        // Single category slug
-        if (is_string($categories)) {
-            return $this->categories->contains('slug', $categories);
-        }
-
-        // Single category id
-        if (is_int($categories)) {
-            return $this->categories->contains('id', $categories);
-        }
-
-        // Single category model
-        if ($categories instanceof Category) {
-            return $this->categories->contains('slug', $categories->slug);
-        }
-
-        // Array of category slugs
-        if (is_array($categories) && isset($categories[0]) && is_string($categories[0])) {
-            return ! $this->categories->pluck('slug')->intersect($categories)->isEmpty();
-        }
-
-        // Array of category ids
-        if (is_array($categories) && isset($categories[0]) && is_int($categories[0])) {
-            return ! $this->categories->pluck('id')->intersect($categories)->isEmpty();
-        }
-
-        // Collection of category models
-        if ($categories instanceof Collection) {
-            return ! $categories->intersect($this->categories->pluck('slug'))->isEmpty();
-        }
-
-        return false;
-    }
-
-    /**
-     * Determine if the model has any the given categories.
-     *
-     * @param int|string|array|\ArrayAccess|\Rinvex\Categorizable\Models\Category $categories
-     *
-     * @return bool
-     */
-    public function hasAnyCategory($categories): bool
-    {
-        return static::hasCategory($categories);
+        return static::hasCategories($categories);
     }
 
     /**
      * Determine if the model has all of the given categories.
      *
-     * @param int|string|array|\ArrayAccess|\Rinvex\Categorizable\Models\Category $categories
+     * @param mixed  $categories
      *
      * @return bool
      */
     public function hasAllCategories($categories): bool
     {
-        // Single category slug
-        if (is_string($categories)) {
-            return $this->categories->contains('slug', $categories);
+        $categories = $this->prepareCategoryIds($categories);
+
+        return collect($categories)->diff($this->categories->pluck('id'))->isEmpty();
+    }
+
+    /**
+     * Sync model categories.
+     *
+     * @param mixed $categories
+     * @param bool  $detaching
+     *
+     * @return static
+     */
+    public function syncCategories($categories, bool $detaching = true)
+    {
+        // Find categories
+        $categories = $this->prepareCategoryIds($categories);
+
+        // Sync model categories
+        $this->categories()->sync($categories, $detaching);
+
+        return $this;
+    }
+
+    /**
+     * Attach model categories.
+     *
+     * @param mixed $categories
+     *
+     * @return static
+     */
+    public function attachCategories($categories)
+    {
+        return $this->syncCategories($categories, false);
+    }
+
+    /**
+     * Detach model categories.
+     *
+     * @param mixed  $categories
+     *
+     * @return static
+     */
+    public function detachCategories($categories = null)
+    {
+        $categories = ! is_null($categories) ? $this->prepareCategoryIds($categories) : null;
+
+        // Sync model categories
+        $this->categories()->detach($categories);
+
+        return $this;
+    }
+
+    /**
+     * Prepare category IDs.
+     *
+     * @param mixed  $categories
+     *
+     * @return array
+     */
+    protected function prepareCategoryIds($categories): array
+    {
+        // Convert collection to plain array
+        if ($categories instanceof BaseCollection && is_string($categories->first())) {
+            $categories = $categories->toArray();
         }
 
-        // Single category id
-        if (is_int($categories)) {
-            return $this->categories->contains('id', $categories);
+        // Find categories by slug, and get their IDs
+        if (is_string($categories) || (is_array($categories) && is_string(array_first($categories)))) {
+            $categories = app('rinvex.categorizable.category')->whereIn('slug', $categories)->get()->pluck('id');
         }
 
-        // Single category model
-        if ($categories instanceof Category) {
-            return $this->categories->contains('slug', $categories->slug);
+        if ($categories instanceof Model) {
+            return [$categories->getKey()];
         }
 
-        // Array of category slugs
-        if (is_array($categories) && isset($categories[0]) && is_string($categories[0])) {
-            return $this->categories->pluck('slug')->count() === count($categories)
-                   && $this->categories->pluck('slug')->diff($categories)->isEmpty();
-        }
-
-        // Array of category ids
-        if (is_array($categories) && isset($categories[0]) && is_int($categories[0])) {
-            return $this->categories->pluck('id')->count() === count($categories)
-                   && $this->categories->pluck('id')->diff($categories)->isEmpty();
-        }
-
-        // Collection of category models
         if ($categories instanceof Collection) {
-            return $this->categories->count() === $categories->count() && $this->categories->diff($categories)->isEmpty();
+            return $categories->modelKeys();
         }
 
-        return false;
-    }
+        if ($categories instanceof BaseCollection) {
+            return $categories->toArray();
+        }
 
-    /**
-     * Set the given category(ies) to the model.
-     *
-     * @param int|string|array|\ArrayAccess|\Rinvex\Categorizable\Models\Category $categories
-     * @param string                                                              $action
-     *
-     * @return void
-     */
-    protected function setCategories($categories, string $action)
-    {
-        // Fix exceptional event name
-        $event = $action === 'syncWithoutDetaching' ? 'attach' : $action;
-
-        // Hydrate Categories
-        $categories = static::hydrateCategories($categories)->pluck('id')->toArray();
-
-        // Fire the category syncing event
-        static::$dispatcher->dispatch("rinvex.categorizable.{$event}ing", [$this, $categories]);
-
-        // Set categories
-        $this->categories()->$action($categories);
-
-        // Fire the category synced event
-        static::$dispatcher->dispatch("rinvex.categorizable.{$event}ed", [$this, $categories]);
-    }
-
-    /**
-     * Hydrate categories.
-     *
-     * @param int|string|array|\ArrayAccess|\Rinvex\Categorizable\Models\Category $categories
-     *
-     * @return \Illuminate\Support\Collection
-     */
-    protected function hydrateCategories($categories)
-    {
-        $isCategoriesStringBased = static::isCategoriesStringBased($categories);
-        $isCategoriesIntBased = static::isCategoriesIntBased($categories);
-        $className = config('rinvex.categorizable.models.category');
-        $field = $isCategoriesStringBased ? 'slug' : 'id';
-
-        return $isCategoriesStringBased || $isCategoriesIntBased
-            ? $className::query()->whereIn($field, (array) $categories)->get() : collect($categories);
-    }
-
-    /**
-     * Determine if the given category(ies) are string based.
-     *
-     * @param int|string|array|\ArrayAccess|\Rinvex\Categorizable\Models\Category $categories
-     *
-     * @return bool
-     */
-    protected function isCategoriesStringBased($categories)
-    {
-        return is_string($categories) || (is_array($categories) && isset($categories[0]) && is_string($categories[0]));
-    }
-
-    /**
-     * Determine if the given category(ies) are integer based.
-     *
-     * @param int|string|array|\ArrayAccess|\Rinvex\Categorizable\Models\Category $categories
-     *
-     * @return bool
-     */
-    protected function isCategoriesIntBased($categories)
-    {
-        return is_int($categories) || (is_array($categories) && isset($categories[0]) && is_int($categories[0]));
+        return (array) $categories;
     }
 }
