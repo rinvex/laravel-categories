@@ -46,7 +46,7 @@
         "illuminate/support": "~5.4.0|~5.5.0",
         "illuminate/database": "~5.4.0|~5.5.0",
         "rinvex/cacheable": "dev-develop",
-        "spatie/laravel-sluggable": "^1.5.0",
+        "spatie/laravel-sluggable": "^2.0.0",
         "spatie/laravel-translatable": "^2.0.0"
     },
     "require-dev": {
