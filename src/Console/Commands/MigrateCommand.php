@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Rinvex\Categorizable\Console\Commands;
+namespace Rinvex\Categories\Console\Commands;
 
 use Illuminate\Console\Command;
 
@@ -13,14 +13,14 @@ class MigrateCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'rinvex:migrate:categorizable';
+    protected $signature = 'rinvex:migrate:categories';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Migrate Rinvex Categorizable Tables.';
+    protected $description = 'Migrate Rinvex Categories Tables.';
 
     /**
      * Execute the console command.
@@ -29,7 +29,7 @@ class MigrateCommand extends Command
      */
     public function handle()
     {
-        $this->warn('Migrate rinvex/categorizable:');
-        $this->call('migrate', ['--step' => true, '--path' => 'vendor/rinvex/categorizable/database/migrations']);
+        $this->warn('Migrate rinvex/categories:');
+        $this->call('migrate', ['--step' => true, '--path' => 'vendor/rinvex/categories/database/migrations']);
     }
 }

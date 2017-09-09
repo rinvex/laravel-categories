@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Rinvex\Categorizable\Models;
+namespace Rinvex\Categories\Models;
 
 use Spatie\Sluggable\HasSlug;
 use Kalnoy\Nestedset\NestedSet;
@@ -12,12 +12,12 @@ use Illuminate\Database\Eloquent\Model;
 use Rinvex\Cacheable\CacheableEloquent;
 use Rinvex\Support\Traits\HasTranslations;
 use Rinvex\Support\Traits\ValidatingTrait;
-use Rinvex\Categorizable\Builders\EloquentBuilder;
-use Rinvex\Categorizable\Contracts\CategoryContract;
+use Rinvex\Categories\Builders\EloquentBuilder;
+use Rinvex\Categories\Contracts\CategoryContract;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
 
 /**
- * Rinvex\Categorizable\Models\Category.
+ * Rinvex\Categories\Models\Category.
  *
  * @property int                                                                       $id
  * @property string                                                                    $slug
@@ -29,19 +29,19 @@ use Illuminate\Database\Eloquent\Relations\MorphToMany;
  * @property \Carbon\Carbon                                                            $created_at
  * @property \Carbon\Carbon                                                            $updated_at
  * @property \Carbon\Carbon                                                            $deleted_at
- * @property-read \Kalnoy\Nestedset\Collection|\Rinvex\Categorizable\Models\Category[] $children
- * @property-read \Rinvex\Categorizable\Models\Category|null                           $parent
+ * @property-read \Kalnoy\Nestedset\Collection|\Rinvex\Categories\Models\Category[] $children
+ * @property-read \Rinvex\Categories\Models\Category|null                           $parent
  *
- * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Categorizable\Models\Category whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Categorizable\Models\Category whereDeletedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Categorizable\Models\Category whereDescription($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Categorizable\Models\Category whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Categorizable\Models\Category whereLft($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Categorizable\Models\Category whereName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Categorizable\Models\Category whereParentId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Categorizable\Models\Category whereRgt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Categorizable\Models\Category whereSlug($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Categorizable\Models\Category whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Categories\Models\Category whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Categories\Models\Category whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Categories\Models\Category whereDescription($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Categories\Models\Category whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Categories\Models\Category whereLft($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Categories\Models\Category whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Categories\Models\Category whereParentId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Categories\Models\Category whereRgt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Categories\Models\Category whereSlug($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Categories\Models\Category whereUpdatedAt($value)
  * @mixin \Eloquent
  */
 class Category extends Model implements CategoryContract
@@ -117,11 +117,11 @@ class Category extends Model implements CategoryContract
     {
         parent::__construct($attributes);
 
-        $this->setTable(config('rinvex.categorizable.tables.categories'));
+        $this->setTable(config('rinvex.categories.tables.categories'));
         $this->setRules([
             'name' => 'required|string|max:150',
             'description' => 'nullable|string|max:10000',
-            'slug' => 'required|alpha_dash|max:150|unique:'.config('rinvex.categorizable.tables.categories').',slug',
+            'slug' => 'required|alpha_dash|max:150|unique:'.config('rinvex.categories.tables.categories').',slug',
             NestedSet::LFT => 'sometimes|required|integer',
             NestedSet::RGT => 'sometimes|required|integer',
             NestedSet::PARENT_ID => 'nullable|integer',
@@ -154,7 +154,7 @@ class Category extends Model implements CategoryContract
      */
     public function entries(string $class): MorphToMany
     {
-        return $this->morphedByMany($class, 'categorizable', config('rinvex.categorizable.tables.categorizables'), 'category_id', 'categorizable_id');
+        return $this->morphedByMany($class, 'categorizable', config('rinvex.categories.tables.categorizables'), 'category_id', 'categorizable_id');
     }
 
     /**

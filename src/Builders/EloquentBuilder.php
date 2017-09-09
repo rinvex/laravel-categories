@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Rinvex\Categorizable\Builders;
+namespace Rinvex\Categories\Builders;
 
 use Kalnoy\Nestedset\QueryBuilder;
 

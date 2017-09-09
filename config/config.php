@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 return [
 
-    // Categorizable Database Tables
+    // Categories Database Tables
     'tables' => [
 
         'categories' => 'categories',
@@ -12,9 +12,9 @@ return [
 
     ],
 
-    // Categorizable Models
+    // Categories Models
     'models' => [
-        'category' => \Rinvex\Categorizable\Models\Category::class,
+        'category' => \Rinvex\Categories\Models\Category::class,
     ],
 
 ];

@@ -1,6 +1,6 @@
 {
-    "name": "rinvex/categorizable",
-    "description": "Rinvex Categorizable is a polymorphic Laravel package, for category management. You can categorize any eloquent model with ease, and utilize the power of Nested Sets, and the awesomeness of Sluggable, and Translatable models out of the box.",
+    "name": "rinvex/categories",
+    "description": "Rinvex Categories is a polymorphic Laravel package, for category management. You can categorize any eloquent model with ease, and utilize the power of Nested Sets, and the awesomeness of Sluggable, and Translatable models out of the box.",
     "keywords": [
         "model",
         "laravel",
@@ -18,9 +18,9 @@
     "homepage": "https://rinvex.com",
     "support": {
         "email": "help@rinvex.com",
-        "issues": "https://github.com/rinvex/categorizable/issues",
-        "source": "https://github.com/rinvex/categorizable",
-        "docs": "https://github.com/rinvex/categorizable/blob/master/README.md"
+        "issues": "https://github.com/rinvex/categories/issues",
+        "source": "https://github.com/rinvex/categories",
+        "docs": "https://github.com/rinvex/categories/blob/master/README.md"
     },
     "authors": [
         {
@@ -36,7 +36,7 @@
         },
         {
             "name": "The Generous Laravel Community",
-            "homepage": "https://github.com/rinvex/categorizable/contributors"
+            "homepage": "https://github.com/rinvex/categories/contributors"
         }
     ],
     "require": {
@@ -58,12 +58,12 @@
             "database"
         ],
         "psr-4": {
-            "Rinvex\\Categorizable\\": "src/"
+            "Rinvex\\Categories\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Rinvex\\Categorizable\\Test\\": "tests"
+            "Rinvex\\Categories\\Test\\": "tests"
         }
     },
     "config": {
@@ -77,7 +77,7 @@
         },
         "laravel": {
             "providers": [
-                "Rinvex\\Categorizable\\Providers\\CategorizableServiceProvider"
+                "Rinvex\\Categories\\Providers\\CategoriesServiceProvider"
             ]
         }
     },

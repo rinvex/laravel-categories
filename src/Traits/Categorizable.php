@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Rinvex\Categorizable\Traits;
+namespace Rinvex\Categories\Traits;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
@@ -55,14 +55,14 @@ trait Categorizable
      */
     public function categories(): MorphToMany
     {
-        return $this->morphToMany(config('rinvex.categorizable.models.category'), 'categorizable', config('rinvex.categorizable.tables.categorizables'), 'categorizable_id', 'category_id')
+        return $this->morphToMany(config('rinvex.categories.models.category'), 'categorizable', config('rinvex.categories.tables.categorizables'), 'categorizable_id', 'category_id')
                     ->withTimestamps();
     }
 
     /**
      * Attach the given category(ies) to the model.
      *
-     * @param int|string|array|\ArrayAccess|\Rinvex\Categorizable\Models\Category $categories
+     * @param int|string|array|\ArrayAccess|\Rinvex\Categories\Models\Category $categories
      *
      * @return void
      */
@@ -269,7 +269,7 @@ trait Categorizable
 
         // Find categories by slug, and get their IDs
         if (is_string($categories) || (is_array($categories) && is_string(array_first($categories)))) {
-            $categories = app('rinvex.categorizable.category')->whereIn('slug', $categories)->get()->pluck('id');
+            $categories = app('rinvex.categories.category')->whereIn('slug', $categories)->get()->pluck('id');
         }
 
         if ($categories instanceof Model) {

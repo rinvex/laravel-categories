@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Rinvex\Categorizable\Providers;
+namespace Rinvex\Categories\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Rinvex\Categorizable\Contracts\CategoryContract;
-use Rinvex\Categorizable\Console\Commands\MigrateCommand;
+use Rinvex\Categories\Contracts\CategoryContract;
+use Rinvex\Categories\Console\Commands\MigrateCommand;
 
-class CategorizableServiceProvider extends ServiceProvider
+class CategoriesServiceProvider extends ServiceProvider
 {
     /**
      * The commands to be registered.
@@ -16,7 +16,7 @@ class CategorizableServiceProvider extends ServiceProvider
      * @var array
      */
     protected $commands = [
-        MigrateCommand::class => 'command.rinvex.categorizable.migrate',
+        MigrateCommand::class => 'command.rinvex.categories.migrate',
     ];
 
     /**
@@ -25,13 +25,13 @@ class CategorizableServiceProvider extends ServiceProvider
     public function register()
     {
         // Merge config
-        $this->mergeConfigFrom(realpath(__DIR__.'/../../config/config.php'), 'rinvex.categorizable');
+        $this->mergeConfigFrom(realpath(__DIR__.'/../../config/config.php'), 'rinvex.categories');
 
         // Bind eloquent models to IoC container
-        $this->app->singleton('rinvex.categorizable.category', function ($app) {
-            return new $app['config']['rinvex.categorizable.models.category']();
+        $this->app->singleton('rinvex.categories.category', function ($app) {
+            return new $app['config']['rinvex.categories.models.category']();
         });
-        $this->app->alias('rinvex.categorizable.category', CategoryContract::class);
+        $this->app->alias('rinvex.categories.category', CategoryContract::class);
 
         // Register console commands
         ! $this->app->runningInConsole() || $this->registerCommands();
@@ -56,8 +56,8 @@ class CategorizableServiceProvider extends ServiceProvider
      */
     protected function publishResources()
     {
-        $this->publishes([realpath(__DIR__.'/../../config/config.php') => config_path('rinvex.categorizable.php')], 'rinvex-categorizable-config');
-        $this->publishes([realpath(__DIR__.'/../../database/migrations') => database_path('migrations')], 'rinvex-categorizable-migrations');
+        $this->publishes([realpath(__DIR__.'/../../config/config.php') => config_path('rinvex.categories.php')], 'rinvex-categories-config');
+        $this->publishes([realpath(__DIR__.'/../../database/migrations') => database_path('migrations')], 'rinvex-categories-migrations');
     }
 
     /**
