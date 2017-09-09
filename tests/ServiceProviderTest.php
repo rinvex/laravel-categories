@@ -2,20 +2,20 @@
 
 declare(strict_types=1);
 
-namespace Rinvex\Categorizable\Test;
+namespace Rinvex\Categories\Test;
 
 use ReflectionClass;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use Illuminate\Container\Container;
 use Illuminate\Support\ServiceProvider;
-use Rinvex\Categorizable\CategorizableServiceProvider;
+use Rinvex\Categories\Providers\CategoriesServiceProvider;
 
-class ServiceProviderTest extends PHPUnit_Framework_TestCase
+class ServiceProviderTest extends TestCase
 {
     /** Get the service provider class. */
     protected function getServiceProviderClass(): string
     {
-        return CategorizableServiceProvider::class;
+        return CategoriesServiceProvider::class;
     }
 
     /** @test */

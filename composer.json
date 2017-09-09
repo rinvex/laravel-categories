@@ -1,6 +1,6 @@
 {
-    "name": "rinvex/categorizable",
-    "description": "Rinvex Categorizable is a polymorphic Laravel package, for category management. You can categorize any eloquent model with ease, and utilize the power of Nested Sets, and the awesomeness of Sluggable, and Translatable models out of the box.",
+    "name": "rinvex/categories",
+    "description": "Rinvex Categories is a polymorphic Laravel package, for category management. You can categorize any eloquent model with ease, and utilize the power of Nested Sets, and the awesomeness of Sluggable, and Translatable models out of the box.",
     "keywords": [
         "model",
         "laravel",
@@ -18,9 +18,9 @@
     "homepage": "https://rinvex.com",
     "support": {
         "email": "help@rinvex.com",
-        "issues": "https://github.com/rinvex/categorizable/issues",
-        "source": "https://github.com/rinvex/categorizable",
-        "docs": "https://github.com/rinvex/categorizable/blob/master/README.md"
+        "issues": "https://github.com/rinvex/categories/issues",
+        "source": "https://github.com/rinvex/categories",
+        "docs": "https://github.com/rinvex/categories/blob/master/README.md"
     },
     "authors": [
         {
@@ -36,34 +36,34 @@
         },
         {
             "name": "The Generous Laravel Community",
-            "homepage": "https://github.com/rinvex/categorizable/contributors"
+            "homepage": "https://github.com/rinvex/categories/contributors"
         }
     ],
     "require": {
         "php": "^7.0.0",
-        "kalnoy/nestedset": "^4.1.0",
+        "kalnoy/nestedset": "^4.3.0",
         "watson/validating": "^3.0.1",
-        "illuminate/support": "~5.4.0|~5.5.0",
-        "illuminate/database": "~5.4.0|~5.5.0",
+        "illuminate/support": "~5.5.0",
+        "illuminate/database": "~5.5.0",
         "rinvex/cacheable": "dev-develop",
-        "spatie/laravel-sluggable": "^1.3.0",
-        "spatie/laravel-translatable": "^1.1.0"
+        "spatie/laravel-sluggable": "^2.0.0",
+        "spatie/laravel-translatable": "^2.0.0"
     },
     "require-dev": {
         "phpunit/phpunit": "^6.0.0",
-        "illuminate/container": "~5.4.0|~5.5.0"
+        "illuminate/container": "~5.5.0"
     },
     "autoload": {
         "classmap": [
             "database"
         ],
         "psr-4": {
-            "Rinvex\\Categorizable\\": "src/"
+            "Rinvex\\Categories\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Rinvex\\Categorizable\\Test\\": "tests"
+            "Rinvex\\Categories\\Test\\": "tests"
         }
     },
     "config": {
@@ -77,7 +77,7 @@
         },
         "laravel": {
             "providers": [
-                "Rinvex\\Categorizable\\CategorizableServiceProvider"
+                "Rinvex\\Categories\\Providers\\CategoriesServiceProvider"
             ]
         }
     },

@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace Rinvex\Categorizable;
+namespace Rinvex\Categories\Builders;
 
 use Kalnoy\Nestedset\QueryBuilder;
 
 /**
- * Class EloquentBuilderOverride.
+ * Class EloquentBuilder.
  *
  * This class is an override to resolve the trait conflict between:
  * - NodeTrait::newEloquentBuilder
  * - CacheableEloquent::newEloquentBuilder
  */
-class EloquentBuilderOverride extends QueryBuilder
+class EloquentBuilder extends QueryBuilder
 {
     /**
      * Execute the query as a "select" statement.

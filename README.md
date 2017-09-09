@@ -1,48 +1,30 @@
-# Rinvex Categorizable
+# Rinvex Categories
 
-**Rinvex Categorizable** is a polymorphic Laravel package, for category management. You can categorize any eloquent model
-with ease, and utilize the power of **[Nested Sets](https://github.com/lazychaser/laravel-nestedset)**,
-and the awesomeness of **[Sluggable](https://github.com/spatie/laravel-sluggable)**,
-and **[Translatable](https://github.com/spatie/laravel-translatable)**
-models out of the box.
+**Rinvex Categories** is a polymorphic Laravel package, for category management. You can categorize any eloquent model with ease, and utilize the power of **[Nested Sets](https://github.com/lazychaser/laravel-nestedset)**, and the awesomeness of **[Sluggable](https://github.com/spatie/laravel-sluggable)**, and **[Translatable](https://github.com/spatie/laravel-translatable)** models out of the box.
 
-[![Packagist](https://img.shields.io/packagist/v/rinvex/categorizable.svg?label=Packagist&style=flat-square)](https://packagist.org/packages/rinvex/categorizable)
-[![VersionEye Dependencies](https://img.shields.io/versioneye/d/php/rinvex:categorizable.svg?label=Dependencies&style=flat-square)](https://www.versioneye.com/php/rinvex:categorizable/)
-[![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/g/rinvex/categorizable.svg?label=Scrutinizer&style=flat-square)](https://scrutinizer-ci.com/g/rinvex/categorizable/)
-[![Code Climate](https://img.shields.io/codeclimate/github/rinvex/categorizable.svg?label=CodeClimate&style=flat-square)](https://codeclimate.com/github/rinvex/categorizable)
-[![Travis](https://img.shields.io/travis/rinvex/categorizable.svg?label=TravisCI&style=flat-square)](https://travis-ci.org/rinvex/categorizable)
+[![Packagist](https://img.shields.io/packagist/v/rinvex/categories.svg?label=Packagist&style=flat-square)](https://packagist.org/packages/rinvex/categories)
+[![VersionEye Dependencies](https://img.shields.io/versioneye/d/php/rinvex:categories.svg?label=Dependencies&style=flat-square)](https://www.versioneye.com/php/rinvex:categories/)
+[![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/g/rinvex/categories.svg?label=Scrutinizer&style=flat-square)](https://scrutinizer-ci.com/g/rinvex/categories/)
+[![Code Climate](https://img.shields.io/codeclimate/github/rinvex/categories.svg?label=CodeClimate&style=flat-square)](https://codeclimate.com/github/rinvex/categories)
+[![Travis](https://img.shields.io/travis/rinvex/categories.svg?label=TravisCI&style=flat-square)](https://travis-ci.org/rinvex/categories)
 [![SensioLabs Insight](https://img.shields.io/sensiolabs/i/109d4cb7-3826-468d-ae82-5c936a8dae2d.svg?label=SensioLabs&style=flat-square)](https://insight.sensiolabs.com/projects/109d4cb7-3826-468d-ae82-5c936a8dae2d)
 [![StyleCI](https://styleci.io/repos/87599972/shield)](https://styleci.io/repos/87599972)
-[![License](https://img.shields.io/packagist/l/rinvex/categorizable.svg?label=License&style=flat-square)](https://github.com/rinvex/categorizable/blob/develop/LICENSE)
+[![License](https://img.shields.io/packagist/l/rinvex/categories.svg?label=License&style=flat-square)](https://github.com/rinvex/categories/blob/develop/LICENSE)
 
 
 ## Installation
 
 1. Install the package via composer:
     ```shell
-    composer require rinvex/categorizable
+    composer require rinvex/categories
     ```
 
 2. Execute migrations via the following command:
     ```
-    php artisan migrate --path="vendor/rinvex/categorizable/database/migrations"
+    php artisan rinvex:migrate:categories
     ```
 
-3. Add the following service provider to the `'providers'` array inside `app/config/app.php`:
-    ```php
-    Rinvex\Categorizable\CategorizableServiceProvider::class
-    ```
-
-4. **Optionally** you can publish migration and config files by running the following command:
-    ```shell
-    // Publish migrations
-    php artisan vendor:publish --tag="migrations" --provider="Rinvex\Categorizable\CategorizableServiceProvider"
-
-    // Publish config
-    php artisan vendor:publish --tag="config" --provider="Rinvex\Categorizable\CategorizableServiceProvider"
-    ```
-
-5. Done!
+3. Done!
 
 
 ## Usage
@@ -50,63 +32,35 @@ models out of the box.
 - [Create Your Model](#create-your-model)
 - [Manage Your Categories](#manage-your-categories)
 - [Manage Your Categorizable Model](#manage-your-categorizable-model)
-- [Generate Tag Slugs](#generate-tag-slugs)
+- [Generate Category Slugs](#generate-category-slugs)
 - [Smart Parameter Detection](#smart-parameter-detection)
-- [Retrieve All Models Attached To The Tag](#retrieve-all-models-attached-to-the-tag)
+- [Retrieve All Models Attached To The Category](#retrieve-all-models-attached-to-the-category)
 - [Fired Events](#fired-events)
 - [Query Scopes](#query-scopes)
 - [Category Translations](#category-translations)
 
 ### Create Your Model
 
-Simply create a new eloquent model, and use `Categorizable` trait:
-``` php
-<?php
+Simply create a new eloquent model, and use `\Rinvex\Categories\Traits\Categorizable` trait:
 
-namespace App;
+```php
+namespace App\Models;
 
-use Rinvex\Categorizable\Category;
-use Rinvex\Categorizable\Categorizable;
 use Illuminate\Database\Eloquent\Model;
+use Rinvex\Categories\Traits\Categorizable;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
 
 class Post extends Model
 {
     use Categorizable;
-
-    public function categories(): MorphToMany
-    {
-        return $this->morphToMany(Category::class, 'categorizable');
-    }
 }
 ```
 
 ### Manage Your Categories
 
-```php
-use Rinvex\Categorizable\Category;
+Your categories are just normal [eloquent](https://laravel.com/docs/master/eloquent) models, so you can deal with it like so. Nothing special here!
 
-// Create a new category by name
-Category::createByName('My New Category');
-
-// Create a new category by translation
-Category::createByName('تصنيف جديد', 'ar');
-
-// Get existing category by name
-Category::findByName('My New Category');
-
-// Get existing category by translation
-Category::findByName('تصنيف جديد', 'ar');
-
-// Find category by name or create if not exists
-Category::findByNameOrCreate('My Brand New Category');
-
-// Find many categories by name or create if not exists
-Category::findManyByNameOrCreate(['My Brand New Category 2', 'My Brand New Category 3']);
-```
-
-> **Notes:** since **Rinvex Categorizable** extends and utilizes other awesome packages, checkout the following
-> documentations for further details:
+> **Notes:** since **Rinvex Categories** extends and utilizes other awesome packages, checkout the following documentations for further details:
 > - Powerful Nested Sets using [`kalnoy/nestedset`](https://github.com/lazychaser/laravel-nestedset)
 > - Automatic Slugging using [`spatie/laravel-sluggable`](https://github.com/spatie/laravel-sluggable)
 > - Translatable out of the box using [`spatie/laravel-translatable`](https://github.com/spatie/laravel-translatable)
@@ -114,120 +68,180 @@ Category::findManyByNameOrCreate(['My Brand New Category 2', 'My Brand New Categ
 ### Manage Your Categorizable Model
 
 The API is intutive and very straightfarwad, so let's give it a quick look:
+
 ```php
 // Instantiate your model
-$post = new \App\Post();
-
-// Attach given categories to the model
-$post->categorize(['my-new-category', 'my-brand-new-category']);
-
-// Detach given categories from the model
-$post->uncategorize(['my-new-category']);
-
-// Remove all attached categories
-$post->recategorize(null);
+$post = new \App\Models\Post();
 
 // Get attached categories collection
 $post->categories;
 
-// Get attached categories array with slugs and names
-$post->categoryList();
-
-// Check model if has any given categories
-$post->hasCategory(['my-new-category', 'my-brand-new-category']);
-
-// Check model if has any given categories
-$post->hasAllCategories(['my-new-category', 'my-brand-new-category']);
-
-// Sync given categories with the model (remove attached categories and reattach given ones)
-$post->recategorize(['my-new-category', 'my-brand-new-category']);
+// Get attached categories query builder
+$post->categories();
 ```
 
-### Generate Tag Slugs
-
-**Rinvex Categorizable** auto generates slugs and auto detect and insert default translation for you, but you still
-can pass it explicitly through normal eloquent `create` method, as follows:
+You can attach categories in various ways:
 
 ```php
-Category::create(['name' => ['en' => 'My New Category'], 'slug' => 'custom-category-slug']);
+// Single category id
+$post->attachCategories(1);
+
+// Multiple category IDs array
+$post->attachCategories([1, 2, 5]);
+
+// Multiple category IDs collection
+$post->attachCategories(collect([1, 2, 5]));
+
+// Single category model instance
+$categoryInstance = app('rinvex.categories.category')->first();
+$post->attachCategories($categoryInstance);
+
+// Single category slug
+$post->attachCategories('test-category');
+
+// Multiple category slugs array
+$post->attachCategories(['first-category', 'second-category']);
+
+// Multiple category slugs collection
+$post->attachCategories(collect(['first-category', 'second-category']));
+
+// Multiple category model instances
+$categoryInstances = app('rinvex.categories.category')->whereIn('id', [1, 2, 5])->get();
+$post->attachCategories($categoryInstances);
 ```
 
-### Smart Parameter Detection
+> **Notes:** 
+> - The `attachCategories()` method attach the given categories to the model without touching the currently attached categories, while there's the `syncCategories()` method that can detach any records that's not in the given items, this method takes a second optional boolean parameter that's set detaching flag to `true` or `false`.
+> - To detach model categories you can use the `detachCategories()` method, which uses **exactly** the same signature as the `attachCategories()` method, with additional feature of detaching all currently attached categories by passing null or nothing to that method as follows: `$post->detachCategories();`.
 
-All categorizable methods that accept list of categories are smart enough to handle almost all kind of inputs,
-for example you can pass single category slug, single category id, single category model, an array of category slugs,
-an array of category ids, or a collection of category models. It will check input type and behave accordingly. Example:
+And as you may have expected, you can check if categories attached:
 
 ```php
-$post = new \App\Post();
+// Single category id
+$post->hasAnyCategories(1);
 
-$post->hasCategory(1);
-$post->hasCategory([1,2,4]);
-$post->hasCategory('my-new-category');
-$post->hasCategory(['my-new-category', 'my-brand-new-category']);
-$post->hasCategory(Category::where('slug', 'my-new-category')->first());
-$post->hasCategory(Category::whereIn('id', [5,6,7])->get());
+// Multiple category IDs array
+$post->hasAnyCategories([1, 2, 5]);
+
+// Multiple category IDs collection
+$post->hasAnyCategories(collect([1, 2, 5]));
+
+// Single category model instance
+$categoryInstance = app('rinvex.categories.category')->first();
+$post->hasAnyCategories($categoryInstance);
+
+// Single category slug
+$post->hasAnyCategories('test-category');
+
+// Multiple category slugs array
+$post->hasAnyCategories(['first-category', 'second-category']);
+
+// Multiple category slugs collection
+$post->hasAnyCategories(collect(['first-category', 'second-category']));
+
+// Multiple category model instances
+$categoryInstances = app('rinvex.categories.category')->whereIn('id', [1, 2, 5])->get();
+$post->hasAnyCategories($categoryInstances);
 ```
-**Rinvex Categorizable** can understand any of the above parameter syntax and interpret it correctly, same for other methods in this package.
 
-### Retrieve All Models Attached To The Tag
+> **Notes:** 
+> - The `hasAnyCategories()` method check if **ANY** of the given categories are attached to the model. It returns boolean `true` or `false` as a result.
+> - Similarly the `hasAllCategories()` method uses **exactly** the same signature as the `hasAnyCategories()` method, but it behaves differently and performs a strict comparison to check if **ALL** of the given categories are attached.
 
-It's very easy to get all models attached to certain category as follows:
+### Advanced Usage
+
+#### Generate Category Slugs
+
+**Rinvex Categories** auto generates slugs and auto detect and insert default translation for you if not provided, but you still can pass it explicitly through normal eloquent `create` method, as follows:
 
 ```php
-$category = Category::find(1);
-$category->entries(\App\Post::class);
+app('rinvex.categories.category')->create(['name' => ['en' => 'My New Category'], 'slug' => 'custom-category-slug']);
 ```
 
-### Fired Events
+> **Note:** Check **[Sluggable](https://github.com/spatie/laravel-sluggable)** package for further details.
 
-You can listen to the following events fired whenever there's an action on categories:
+#### Smart Parameter Detection
 
-- rinvex.categorizable.attaching
-- rinvex.categorizable.attached
-- rinvex.categorizable.detaching
-- rinvex.categorizable.detached
-- rinvex.categorizable.syncing
-- rinvex.categorizable.synced
+**Rinvex Categories** methods that accept list of categories are smart enough to handle almost all kinds of inputs as you've seen in the above examples. It will check input type and behave accordingly. 
 
-### Query Scopes
+#### Retrieve All Models Attached To The Category
 
-Yes, **Rinvex Categorizable** shipped with few awesome query scopes for your convenience, usage example:
+You may encounter a situation where you need to get all models attached to certain category, you do so with ease as follows:
 
 ```php
-// Get models with all given categories
-Post::withAllCategories(['my-new-category', 'my-brand-new-category'])->get();
-
-// Get models with any given categories
-Post::withAnyCategories(['my-new-category', 'my-brand-new-category'])->get();
-
-// Get models without categories
-Post::withoutCategories(['my-new-category', 'my-brand-new-category'])->get();
-
-// Get models without any categories
-Post::withoutAnyCategories()->get();
+$category = app('rinvex.categories.category')->find(1);
+$category->entries(\App\Models\Post::class);
 ```
 
-### Category Translations
+#### Query Scopes
+
+Yes, **Rinvex Categories** shipped with few awesome query scopes for your convenience, usage example:
+
+```php
+// Single category id
+$post->withAnyCategories(1)->get();
+
+// Multiple category IDs array
+$post->withAnyCategories([1, 2, 5])->get();
+
+// Multiple category IDs collection
+$post->withAnyCategories(collect([1, 2, 5]))->get();
+
+// Single category model instance
+$categoryInstance = app('rinvex.categories.category')->first();
+$post->withAnyCategories($categoryInstance)->get();
+
+// Single category slug
+$post->withAnyCategories('test-category')->get();
+
+// Multiple category slugs array
+$post->withAnyCategories(['first-category', 'second-category'])->get();
+
+// Multiple category slugs collection
+$post->withAnyCategories(collect(['first-category', 'second-category']))->get();
+
+// Multiple category model instances
+$categoryInstances = app('rinvex.categories.category')->whereIn('id', [1, 2, 5])->get();
+$post->withAnyCategories($categoryInstances)->get();
+```
+
+> **Notes:**
+> - The `withAnyCategories()` scope finds posts with **ANY** attached categories of the given. It returns normally a query builder, so you can chain it or call `get()` method for example to execute and get results.
+> - Similarly there's few other scopes like `withAllCategories()` that finds posts with **ALL** attached categories of the given, `withoutCategories()` which finds posts without **ANY** attached categories of the given, and lastly `withoutAnyCategories()` which find posts without **ANY** attached categories at all. All scopes are created equal, with same signature, and returns query builder.
+
+#### Category Translations
 
 Manage category translations with ease as follows:
 
 ```php
-$category = Category::find(1);
+$category = app('rinvex.categories.category')->find(1);
 
-// Set category translation
-$category->setTranslation('name', 'en', 'Name in English');
+// Update name translations
+$category->setTranslation('name', 'en', 'New English Category Name')->save();
 
-// Get category translation
-$category->setTranslation('name', 'en');
+// Alternatively you can use default eloquent update
+$category->update([
+    'name' => [
+        'en' => 'New Category',
+        'ar' => 'تصنيف جديد',
+    ],
+]);
+
+// Get single category translation
+$category->getTranslation('name', 'en');
+
+// Get all category translations
+$category->getTranslations('name');
 
 // Get category name in default locale
 $category->name;
 ```
 
+> **Note:** Check **[Translatable](https://github.com/spatie/laravel-translatable)** package for further details.
+
 ___
 
-## Advanced Usage
+## Manage Your Nodes/Nestedsets
 
 - [Inserting Categories](#inserting-categories)
     - [Creating categories](#creating-categories)
@@ -275,11 +289,11 @@ if ($category->save()) {
 When you simply create a category, it will be appended to the end of the tree:
 
 ```php
-Category::createByName('Additional Category'); // Saved as root
+app('rinvex.categories.category')->createByName('Additional Category'); // Saved as root
 
-Category::create($attributes); // Saved as root
+app('rinvex.categories.category')->create($attributes); // Saved as root
 
-$category = new Category($attributes);
+$category = app('rinvex.categories.category')->fill($attributes);
 $category->save(); // Saved as root
 ```
 
@@ -320,7 +334,7 @@ $category->parent_id = $parent->id;
 $category->save();
 
 // #7 Using static method
-Category::create($attributes, $parent);
+app('rinvex.categories.category')->create($attributes, $parent);
 ```
 
 And only a couple ways to prepend:
@@ -355,7 +369,7 @@ When using static method `create` on category, it checks whether attributes cont
 If it does, it creates more categories recursively, as follows:
 
 ```php
-$category = Category::create([
+$category = app('rinvex.categories.category')->create([
     'name' => [
         'en' => 'New Category Name',
     ],
@@ -385,7 +399,7 @@ $data = [
     [ 'name' => 'bar' ],
 ];
 
-Category::rebuildTree($data, $delete);
+app('rinvex.categories.category')->rebuildTree($data, $delete);
 ```
 
 There is an id specified for category with the name of `foo` which means that existing
@@ -415,7 +429,7 @@ $result = $category->getAncestors();
 $result = $category->ancestors()->get();
 
 // #3 Getting ancestors by primary key
-$result = Category::ancestorsOf($id);
+$result = app('rinvex.categories.category')->ancestorsOf($id);
 ```
 
 #### Descendants
@@ -431,16 +445,16 @@ $result = $category->descendants;
 $result = $category->descendants()->get();
 
 // #3 Getting descendants by primary key
-$result = Category::descendantsOf($id);
+$result = app('rinvex.categories.category')->descendantsOf($id);
 
 // #3 Get descendants and the category by id
-$result = Category::descendantsAndSelf($id);
+$result = app('rinvex.categories.category')->descendantsAndSelf($id);
 ```
 
 Descendants can be eagerly loaded:
 
 ```php
-$categories = Category::with('descendants')->whereIn('id', $idList)->get();
+$categories = app('rinvex.categories.category')->with('descendants')->whereIn('id', $idList)->get();
 ```
 
 #### Siblings
@@ -506,7 +520,7 @@ $categories = $category->descendants()->pluck('id');
 $categories[] = $category->getKey();
 
 // Get posts
-$posts = Post::withCategories($categories)->get();
+$posts = \App\Models\Post::withCategories($categories)->get();
 ```
 
 #### Including category depth
@@ -514,7 +528,7 @@ $posts = Post::withCategories($categories)->get();
 If you need to know at which level the category is:
 
 ```php
-$result = Category::withDepth()->find($id);
+$result = app('rinvex.categories.category')->withDepth()->find($id);
 
 $depth = $result->depth;
 ```
@@ -523,7 +537,7 @@ Root category will be at level 0. Children of root categories will have a level 
 To get categories of specified level, you can apply `having` constraint:
 
 ```php
-$result = Category::withDepth()->having('depth', '=', 1)->get();
+$result = app('rinvex.categories.category')->withDepth()->having('depth', '=', 1)->get();
 ```
 
 #### Default order
@@ -534,13 +548,13 @@ on the query builder:
 
 ```php
 // All categories will now be ordered by lft value
-$result = Category::defaultOrder()->get();
+$result = app('rinvex.categories.category')->defaultOrder()->get();
 ```
 
 You can get categories in reversed order:
 
 ```php
-$result = Category::reversed()->get();
+$result = app('rinvex.categories.category')->reversed()->get();
 ```
 
 ##### Shifting a category
@@ -568,19 +582,19 @@ Various constraints that can be applied to the query builder:
 Descendants constraints:
 
 ```php
-$result = Category::whereDescendantOf($category)->get();
-$result = Category::whereNotDescendantOf($category)->get();
-$result = Category::orWhereDescendantOf($category)->get();
-$result = Category::orWhereNotDescendantOf($category)->get();
+$result = app('rinvex.categories.category')->whereDescendantOf($category)->get();
+$result = app('rinvex.categories.category')->whereNotDescendantOf($category)->get();
+$result = app('rinvex.categories.category')->orWhereDescendantOf($category)->get();
+$result = app('rinvex.categories.category')->orWhereNotDescendantOf($category)->get();
 
 // Include target category into result set
-$result = Category::whereDescendantOrSelf($category)->get();
+$result = app('rinvex.categories.category')->whereDescendantOrSelf($category)->get();
 ```
 
 Ancestor constraints:
 
 ```php
-$result = Category::whereAncestorOf($category)->get();
+$result = app('rinvex.categories.category')->whereAncestorOf($category)->get();
 ```
 
 `$category` can be either a primary key of the model or model instance.
@@ -590,14 +604,14 @@ $result = Category::whereAncestorOf($category)->get();
 After getting a set of categories, you can convert it to tree. For example:
 
 ```php
-$tree = Category::get()->toTree();
+$tree = app('rinvex.categories.category')->get()->toTree();
 ```
 
 This will fill `parent` and `children` relationships on every category in the set and
 you can render a tree using recursive algorithm:
 
 ```php
-$categories = Category::get()->toTree();
+$categories = app('rinvex.categories.category')->get()->toTree();
 
 $traverse = function ($categories, $prefix = '-') use (&$traverse) {
     foreach ($categories as $category) {
@@ -627,7 +641,7 @@ after parent category. This is helpful when you get categories with custom order
 (i.e. alphabetically) and don't want to use recursion to iterate over your categories.
 
 ```php
-$categories = Category::get()->toFlatTree();
+$categories = app('rinvex.categories.category')->get()->toFlatTree();
 ```
 
 ##### Getting a subtree
@@ -635,7 +649,7 @@ $categories = Category::get()->toFlatTree();
 Sometimes you don't need whole tree to be loaded and just some subtree of specific category:
 
 ```php
-$root = Category::find($rootId);
+$root = app('rinvex.categories.category')->find($rootId);
 $tree = $root->descendants->toTree($root);
 ```
 
@@ -644,7 +658,7 @@ Now `$tree` contains children of `$root` category.
 If you don't need `$root` category itself, do following instead:
 
 ```php
-$tree = Category::descendantsOf($rootId)->toTree($rootId);
+$tree = app('rinvex.categories.category')->descendantsOf($rootId)->toTree($rootId);
 ```
 
 ### Deleting categories
@@ -660,7 +674,7 @@ $category->delete();
 **IMPORTANT!** Categories are required to be deleted as models, **don't** try do delete them using a query like so:
 
 ```php
-Category::where('id', '=', $id)->delete();
+app('rinvex.categories.category')->where('id', '=', $id)->delete();
 ```
 
 **That will break the tree!**
@@ -688,10 +702,10 @@ You can check whether a tree is broken (i.e. has some structural errors):
 
 ```php
 // Check if tree is broken
-$bool = Category::isBroken();
+$bool = app('rinvex.categories.category')->isBroken();
 
 // Get tree error statistics
-$data = Category::countErrors();
+$data = app('rinvex.categories.category')->countErrors();
 ```
 
 Tree error statistics will return an array with following keys:
@@ -707,8 +721,10 @@ Category tree can now be fixed if broken. Using inheritance info from `parent_id
 proper `_lft` and `_rgt` values are set for every category.
 
 ```php
-Category::fixTree();
+app('rinvex.categories.category')->fixTree();
 ```
+
+> **Note:** Check **[Nested Sets](https://github.com/lazychaser/laravel-nestedset)** package for further details.
 
 
 ## Changelog

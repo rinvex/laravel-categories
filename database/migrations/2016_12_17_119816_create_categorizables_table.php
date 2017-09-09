@@ -15,16 +15,15 @@ class CreateCategorizablesTable extends Migration
      */
     public function up()
     {
-        Schema::create(config('rinvex.categorizable.tables.categorizables'), function (Blueprint $table) {
+        Schema::create(config('rinvex.categories.tables.categorizables'), function (Blueprint $table) {
             // Columns
             $table->integer('category_id')->unsigned();
-            $table->integer('categorizable_id')->unsigned();
-            $table->string('categorizable_type');
+            $table->morphs('categorizable');
             $table->timestamps();
 
             // Indexes
             $table->unique(['category_id', 'categorizable_id', 'categorizable_type'], 'categorizables_ids_type_unique');
-            $table->foreign('category_id')->references('id')->on(config('rinvex.categorizable.tables.categories'))
+            $table->foreign('category_id')->references('id')->on(config('rinvex.categories.tables.categories'))
                   ->onDelete('cascade')->onUpdate('cascade');
         });
     }
@@ -36,6 +35,6 @@ class CreateCategorizablesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists(config('rinvex.categorizable.tables.categorizables'));
+        Schema::dropIfExists(config('rinvex.categories.tables.categorizables'));
     }
 }
