@@ -7,16 +7,16 @@ namespace Rinvex\Categories\Contracts;
 /**
  * Rinvex\Categories\Contracts\CategoryContract.
  *
- * @property int                                                                       $id
- * @property string                                                                    $slug
- * @property array                                                                     $name
- * @property array                                                                     $description
- * @property int                                                                       $_lft
- * @property int                                                                       $_rgt
- * @property int                                                                       $parent_id
- * @property \Carbon\Carbon                                                            $created_at
- * @property \Carbon\Carbon                                                            $updated_at
- * @property \Carbon\Carbon                                                            $deleted_at
+ * @property int                                                                    $id
+ * @property string                                                                 $slug
+ * @property array                                                                  $name
+ * @property array                                                                  $description
+ * @property int                                                                    $_lft
+ * @property int                                                                    $_rgt
+ * @property int                                                                    $parent_id
+ * @property \Carbon\Carbon|null                                                    $created_at
+ * @property \Carbon\Carbon|null                                                    $updated_at
+ * @property \Carbon\Carbon|null                                                    $deleted_at
  * @property-read \Kalnoy\Nestedset\Collection|\Rinvex\Categories\Models\Category[] $children
  * @property-read \Rinvex\Categories\Models\Category|null                           $parent
  *
