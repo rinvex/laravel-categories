@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Rinvex\Categories\Models;
 
-use Spatie\Sluggable\HasSlug;
 use Kalnoy\Nestedset\NestedSet;
 use Kalnoy\Nestedset\NodeTrait;
 use Spatie\Sluggable\SlugOptions;
+use Rinvex\Support\Traits\HasSlug;
 use Illuminate\Database\Eloquent\Model;
 use Rinvex\Cacheable\CacheableEloquent;
 use Rinvex\Support\Traits\HasTranslations;
@@ -126,23 +126,6 @@ class Category extends Model implements CategoryContract
             NestedSet::RGT => 'sometimes|required|integer',
             NestedSet::PARENT_ID => 'nullable|integer',
         ]);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    protected static function boot()
-    {
-        parent::boot();
-
-        // Auto generate slugs early before validation
-        static::validating(function (self $model) {
-            if ($model->exists && $model->getSlugOptions()->generateSlugsOnUpdate) {
-                $model->generateSlugOnUpdate();
-            } elseif (! $model->exists && $model->getSlugOptions()->generateSlugsOnCreate) {
-                $model->generateSlugOnCreate();
-            }
-        });
     }
 
     /**
