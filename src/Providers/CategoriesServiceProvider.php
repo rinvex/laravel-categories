@@ -8,6 +8,7 @@ use Illuminate\Support\ServiceProvider;
 use Rinvex\Categories\Contracts\CategoryContract;
 use Rinvex\Categories\Console\Commands\MigrateCommand;
 use Rinvex\Categories\Console\Commands\PublishCommand;
+use Rinvex\Categories\Console\Commands\RollbackCommand;
 
 class CategoriesServiceProvider extends ServiceProvider
 {
@@ -19,6 +20,7 @@ class CategoriesServiceProvider extends ServiceProvider
     protected $commands = [
         MigrateCommand::class => 'command.rinvex.categories.migrate',
         PublishCommand::class => 'command.rinvex.categories.publish',
+        RollbackCommand::class => 'command.rinvex.categories.rollback',
     ];
 
     /**
