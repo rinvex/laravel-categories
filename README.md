@@ -303,7 +303,7 @@ $parent->children()->create($attributes);
 $category->parent()->associate($parent)->save();
 
 // #6 Using the parent attribute
-$category->parent_id = $parent->id;
+$category->parent_id = $parent->getKey();
 $category->save();
 
 // #7 Using static method
