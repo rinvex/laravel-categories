@@ -14,7 +14,7 @@ class CreateCategoriesTable extends Migration
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::create(config('rinvex.categories.tables.categories'), function (Blueprint $table) {
             // Columns
@@ -36,7 +36,7 @@ class CreateCategoriesTable extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists(config('rinvex.categories.tables.categories'));
     }
