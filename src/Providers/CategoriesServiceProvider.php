@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Rinvex\Categories\Providers;
 
+use Rinvex\Categories\Models\Category;
 use Illuminate\Support\ServiceProvider;
-use Rinvex\Categories\Contracts\CategoryContract;
 use Rinvex\Categories\Console\Commands\MigrateCommand;
 use Rinvex\Categories\Console\Commands\PublishCommand;
 use Rinvex\Categories\Console\Commands\RollbackCommand;
@@ -35,7 +35,7 @@ class CategoriesServiceProvider extends ServiceProvider
         $this->app->singleton('rinvex.categories.category', function ($app) {
             return new $app['config']['rinvex.categories.models.category']();
         });
-        $this->app->alias('rinvex.categories.category', CategoryContract::class);
+        $this->app->alias('rinvex.categories.category', Category::class);
 
         // Register console commands
         ! $this->app->runningInConsole() || $this->registerCommands();

@@ -13,7 +13,6 @@ use Rinvex\Cacheable\CacheableEloquent;
 use Rinvex\Support\Traits\HasTranslations;
 use Rinvex\Support\Traits\ValidatingTrait;
 use Rinvex\Categories\Builders\EloquentBuilder;
-use Rinvex\Categories\Contracts\CategoryContract;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
 
 /**
@@ -44,7 +43,7 @@ use Illuminate\Database\Eloquent\Relations\MorphToMany;
  * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Categories\Models\Category whereUpdatedAt($value)
  * @mixin \Eloquent
  */
-class Category extends Model implements CategoryContract
+class Category extends Model
 {
     use HasSlug;
     use NodeTrait;
