@@ -13,7 +13,7 @@ class MigrateCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'rinvex:migrate:categories';
+    protected $signature = 'rinvex:migrate:categories {--force : Force the operation to run when in production.}';
 
     /**
      * The console command description.
@@ -30,6 +30,6 @@ class MigrateCommand extends Command
     public function handle(): void
     {
         $this->warn($this->description);
-        $this->call('migrate', ['--step' => true, '--path' => 'vendor/rinvex/categories/database/migrations']);
+        $this->call('migrate', ['--step' => true, '--path' => 'vendor/rinvex/categories/database/migrations', '--force' => $this->option('force')]);
     }
 }
