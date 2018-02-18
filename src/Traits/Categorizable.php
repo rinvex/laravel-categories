@@ -66,7 +66,7 @@ trait Categorizable
      *
      * @return void
      */
-    public function setCategoriesAttribute($categories)
+    public function setCategoriesAttribute($categories): void
     {
         static::saved(function (self $model) use ($categories) {
             $model->syncCategories($categories);

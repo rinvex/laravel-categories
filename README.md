@@ -3,11 +3,9 @@
 **Rinvex Categories** is a polymorphic Laravel package, for category management. You can categorize any eloquent model with ease, and utilize the power of **[Nested Sets](https://github.com/lazychaser/laravel-nestedset)**, and the awesomeness of **[Sluggable](https://github.com/spatie/laravel-sluggable)**, and **[Translatable](https://github.com/spatie/laravel-translatable)** models out of the box.
 
 [![Packagist](https://img.shields.io/packagist/v/rinvex/categories.svg?label=Packagist&style=flat-square)](https://packagist.org/packages/rinvex/categories)
-[![VersionEye Dependencies](https://img.shields.io/versioneye/d/php/rinvex:categories.svg?label=Dependencies&style=flat-square)](https://www.versioneye.com/php/rinvex:categories/)
 [![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/g/rinvex/categories.svg?label=Scrutinizer&style=flat-square)](https://scrutinizer-ci.com/g/rinvex/categories/)
 [![Code Climate](https://img.shields.io/codeclimate/github/rinvex/categories.svg?label=CodeClimate&style=flat-square)](https://codeclimate.com/github/rinvex/categories)
 [![Travis](https://img.shields.io/travis/rinvex/categories.svg?label=TravisCI&style=flat-square)](https://travis-ci.org/rinvex/categories)
-[![SensioLabs Insight](https://img.shields.io/sensiolabs/i/109d4cb7-3826-468d-ae82-5c936a8dae2d.svg?label=SensioLabs&style=flat-square)](https://insight.sensiolabs.com/projects/109d4cb7-3826-468d-ae82-5c936a8dae2d)
 [![StyleCI](https://styleci.io/repos/87599972/shield)](https://styleci.io/repos/87599972)
 [![License](https://img.shields.io/packagist/l/rinvex/categories.svg?label=License&style=flat-square)](https://github.com/rinvex/categories/blob/develop/LICENSE)
 
@@ -29,34 +27,9 @@
 
 ## Usage
 
-- [Create Your Model](#create-your-model)
-- [Manage Your Categories](#manage-your-categories)
-- [Manage Your Categorizable Model](#manage-your-categorizable-model)
-- [Generate Category Slugs](#generate-category-slugs)
-- [Smart Parameter Detection](#smart-parameter-detection)
-- [Retrieve All Models Attached To The Category](#retrieve-all-models-attached-to-the-category)
-- [Fired Events](#fired-events)
-- [Query Scopes](#query-scopes)
-- [Category Translations](#category-translations)
+To add categories support to your eloquent models simply use `\Rinvex\Categories\Traits\Categorizable` trait.
 
-### Create Your Model
-
-Simply create a new eloquent model, and use `\Rinvex\Categories\Traits\Categorizable` trait:
-
-```php
-namespace App\Models;
-
-use Illuminate\Database\Eloquent\Model;
-use Rinvex\Categories\Traits\Categorizable;
-use Illuminate\Database\Eloquent\Relations\MorphToMany;
-
-class Post extends Model
-{
-    use Categorizable;
-}
-```
-
-### Manage Your Categories
+### Manage your categories
 
 Your categories are just normal [eloquent](https://laravel.com/docs/master/eloquent) models, so you can deal with it like so. Nothing special here!
 
@@ -65,13 +38,13 @@ Your categories are just normal [eloquent](https://laravel.com/docs/master/eloqu
 > - Automatic Slugging using [`spatie/laravel-sluggable`](https://github.com/spatie/laravel-sluggable)
 > - Translatable out of the box using [`spatie/laravel-translatable`](https://github.com/spatie/laravel-translatable)
 
-### Manage Your Categorizable Model
+### Manage your categorizable model
 
 The API is intutive and very straightfarwad, so let's give it a quick look:
 
 ```php
-// Instantiate your model
-$post = new \App\Models\Post();
+// Get instance of your model
+$post = new \App\Models\Post::find();
 
 // Get attached categories collection
 $post->categories;
@@ -148,9 +121,9 @@ $post->hasAnyCategories($categoryInstances);
 > - The `hasAnyCategories()` method check if **ANY** of the given categories are attached to the model. It returns boolean `true` or `false` as a result.
 > - Similarly the `hasAllCategories()` method uses **exactly** the same signature as the `hasAnyCategories()` method, but it behaves differently and performs a strict comparison to check if **ALL** of the given categories are attached.
 
-### Advanced Usage
+### Advanced usage
 
-#### Generate Category Slugs
+#### Generate category slugs
 
 **Rinvex Categories** auto generates slugs and auto detect and insert default translation for you if not provided, but you still can pass it explicitly through normal eloquent `create` method, as follows:
 
@@ -160,11 +133,11 @@ app('rinvex.categories.category')->create(['name' => ['en' => 'My New Category']
 
 > **Note:** Check **[Sluggable](https://github.com/spatie/laravel-sluggable)** package for further details.
 
-#### Smart Parameter Detection
+#### Smart parameter detection
 
 **Rinvex Categories** methods that accept list of categories are smart enough to handle almost all kinds of inputs as you've seen in the above examples. It will check input type and behave accordingly. 
 
-#### Retrieve All Models Attached To The Category
+#### Retrieve all models attached to the category
 
 You may encounter a situation where you need to get all models attached to certain category, you do so with ease as follows:
 
@@ -173,7 +146,7 @@ $category = app('rinvex.categories.category')->find(1);
 $category->entries(\App\Models\Post::class);
 ```
 
-#### Query Scopes
+#### Query scopes
 
 Yes, **Rinvex Categories** shipped with few awesome query scopes for your convenience, usage example:
 
@@ -209,7 +182,7 @@ $post->withAnyCategories($categoryInstances)->get();
 > - The `withAnyCategories()` scope finds posts with **ANY** attached categories of the given. It returns normally a query builder, so you can chain it or call `get()` method for example to execute and get results.
 > - Similarly there's few other scopes like `withAllCategories()` that finds posts with **ALL** attached categories of the given, `withoutCategories()` which finds posts without **ANY** attached categories of the given, and lastly `withoutAnyCategories()` which find posts without **ANY** attached categories at all. All scopes are created equal, with same signature, and returns query builder.
 
-#### Category Translations
+#### Category translations
 
 Manage category translations with ease as follows:
 
@@ -241,7 +214,7 @@ $category->name;
 
 ___
 
-## Manage Your Nodes/Nestedsets
+## Manage your nodes/nestedsets
 
 - [Inserting Categories](#inserting-categories)
     - [Creating categories](#creating-categories)
@@ -267,7 +240,7 @@ ___
 - [Checking consistency](#checking-consistency)
     - [Fixing tree](#fixing-tree)
 
-### Inserting Categories
+### Inserting categories
 
 Moving and inserting categories includes several database queries, so **transaction is automatically started**
 when category is saved. It is safe to use global transaction if you work with several models.
@@ -330,7 +303,7 @@ $parent->children()->create($attributes);
 $category->parent()->associate($parent)->save();
 
 // #6 Using the parent attribute
-$category->parent_id = $parent->id;
+$category->parent_id = $parent->getKey();
 $category->save();
 
 // #7 Using static method
@@ -772,4 +745,4 @@ Rinvex is a software solutions startup, specialized in integrated enterprise sol
 
 This software is released under [The MIT License (MIT)](LICENSE).
 
-(c) 2016-2017 Rinvex LLC, Some rights reserved.
+(c) 2016-2018 Rinvex LLC, Some rights reserved.

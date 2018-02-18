@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace Rinvex\Categories\Providers;
 
+use Rinvex\Categories\Models\Category;
 use Illuminate\Support\ServiceProvider;
-use Rinvex\Categories\Contracts\CategoryContract;
 use Rinvex\Categories\Console\Commands\MigrateCommand;
+use Rinvex\Categories\Console\Commands\PublishCommand;
+use Rinvex\Categories\Console\Commands\RollbackCommand;
 
 class CategoriesServiceProvider extends ServiceProvider
 {
@@ -17,6 +19,8 @@ class CategoriesServiceProvider extends ServiceProvider
      */
     protected $commands = [
         MigrateCommand::class => 'command.rinvex.categories.migrate',
+        PublishCommand::class => 'command.rinvex.categories.publish',
+        RollbackCommand::class => 'command.rinvex.categories.rollback',
     ];
 
     /**
@@ -28,10 +32,8 @@ class CategoriesServiceProvider extends ServiceProvider
         $this->mergeConfigFrom(realpath(__DIR__.'/../../config/config.php'), 'rinvex.categories');
 
         // Bind eloquent models to IoC container
-        $this->app->singleton('rinvex.categories.category', function ($app) {
-            return new $app['config']['rinvex.categories.models.category']();
-        });
-        $this->app->alias('rinvex.categories.category', CategoryContract::class);
+        $this->app->singleton('rinvex.categories.category', $categoryModel = $this->app['config']['rinvex.categories.models.category']);
+        $categoryModel === Category::class || $this->app->alias('rinvex.categories.category', Category::class);
 
         // Register console commands
         ! $this->app->runningInConsole() || $this->registerCommands();
@@ -54,7 +56,7 @@ class CategoriesServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function publishResources()
+    protected function publishResources(): void
     {
         $this->publishes([realpath(__DIR__.'/../../config/config.php') => config_path('rinvex.categories.php')], 'rinvex-categories-config');
         $this->publishes([realpath(__DIR__.'/../../database/migrations') => database_path('migrations')], 'rinvex-categories-migrations');
@@ -65,13 +67,11 @@ class CategoriesServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function registerCommands()
+    protected function registerCommands(): void
     {
         // Register artisan commands
         foreach ($this->commands as $key => $value) {
-            $this->app->singleton($value, function ($app) use ($key) {
-                return new $key();
-            });
+            $this->app->singleton($value, $key);
         }
 
         $this->commands(array_values($this->commands));

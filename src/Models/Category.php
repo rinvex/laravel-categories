@@ -4,31 +4,30 @@ declare(strict_types=1);
 
 namespace Rinvex\Categories\Models;
 
-use Spatie\Sluggable\HasSlug;
 use Kalnoy\Nestedset\NestedSet;
 use Kalnoy\Nestedset\NodeTrait;
 use Spatie\Sluggable\SlugOptions;
+use Rinvex\Support\Traits\HasSlug;
 use Illuminate\Database\Eloquent\Model;
 use Rinvex\Cacheable\CacheableEloquent;
 use Rinvex\Support\Traits\HasTranslations;
 use Rinvex\Support\Traits\ValidatingTrait;
 use Rinvex\Categories\Builders\EloquentBuilder;
-use Rinvex\Categories\Contracts\CategoryContract;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
 
 /**
  * Rinvex\Categories\Models\Category.
  *
- * @property int                                                                       $id
- * @property string                                                                    $slug
- * @property array                                                                     $name
- * @property array                                                                     $description
- * @property int                                                                       $_lft
- * @property int                                                                       $_rgt
- * @property int                                                                       $parent_id
- * @property \Carbon\Carbon                                                            $created_at
- * @property \Carbon\Carbon                                                            $updated_at
- * @property \Carbon\Carbon                                                            $deleted_at
+ * @property int                                                                    $id
+ * @property string                                                                 $slug
+ * @property array                                                                  $name
+ * @property array                                                                  $description
+ * @property int                                                                    $_lft
+ * @property int                                                                    $_rgt
+ * @property int                                                                    $parent_id
+ * @property \Carbon\Carbon|null                                                    $created_at
+ * @property \Carbon\Carbon|null                                                    $updated_at
+ * @property \Carbon\Carbon|null                                                    $deleted_at
  * @property-read \Kalnoy\Nestedset\Collection|\Rinvex\Categories\Models\Category[] $children
  * @property-read \Rinvex\Categories\Models\Category|null                           $parent
  *
@@ -44,7 +43,7 @@ use Illuminate\Database\Eloquent\Relations\MorphToMany;
  * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Categories\Models\Category whereUpdatedAt($value)
  * @mixin \Eloquent
  */
-class Category extends Model implements CategoryContract
+class Category extends Model
 {
     use HasSlug;
     use NodeTrait;
@@ -126,23 +125,6 @@ class Category extends Model implements CategoryContract
             NestedSet::RGT => 'sometimes|required|integer',
             NestedSet::PARENT_ID => 'nullable|integer',
         ]);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    protected static function boot()
-    {
-        parent::boot();
-
-        // Auto generate slugs early before validation
-        static::validating(function (self $model) {
-            if ($model->exists && $model->getSlugOptions()->generateSlugsOnUpdate) {
-                $model->generateSlugOnUpdate();
-            } elseif (! $model->exists && $model->getSlugOptions()->generateSlugsOnCreate) {
-                $model->generateSlugOnCreate();
-            }
-        });
     }
 
     /**
