@@ -128,7 +128,7 @@ $post->hasAnyCategories($categoryInstances);
 **Rinvex Categories** auto generates slugs and auto detect and insert default translation for you if not provided, but you still can pass it explicitly through normal eloquent `create` method, as follows:
 
 ```php
-app('rinvex.categories.category')->create(['title' => ['en' => 'My New Category'], 'slug' => 'custom-category-slug']);
+app('rinvex.categories.category')->create(['title' => ['en' => 'My New Category'], 'name' => 'custom-category-name']);
 ```
 
 > **Note:** Check **[Sluggable](https://github.com/spatie/laravel-sluggable)** package for further details.

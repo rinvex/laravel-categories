@@ -55,7 +55,7 @@ class Category extends Model
      * {@inheritdoc}
      */
     protected $fillable = [
-        'slug',
+        'name',
         'title',
         'description',
         NestedSet::LFT,
@@ -67,7 +67,7 @@ class Category extends Model
      * {@inheritdoc}
      */
     protected $casts = [
-        'slug' => 'string',
+        'name' => 'string',
         NestedSet::LFT => 'integer',
         NestedSet::RGT => 'integer',
         NestedSet::PARENT_ID => 'integer',
@@ -120,7 +120,7 @@ class Category extends Model
         $this->setRules([
             'title' => 'required|string|max:150',
             'description' => 'nullable|string|max:10000',
-            'slug' => 'required|alpha_dash|max:150|unique:'.config('rinvex.categories.tables.categories').',slug',
+            'name' => 'required|alpha_dash|max:150|unique:'.config('rinvex.categories.tables.categories').',name',
             NestedSet::LFT => 'sometimes|required|integer',
             NestedSet::RGT => 'sometimes|required|integer',
             NestedSet::PARENT_ID => 'nullable|integer',
@@ -149,7 +149,7 @@ class Category extends Model
         return SlugOptions::create()
                           ->doNotGenerateSlugsOnUpdate()
                           ->generateSlugsFrom('title')
-                          ->saveSlugsTo('slug');
+                          ->saveSlugsTo('name');
     }
 
     /**
