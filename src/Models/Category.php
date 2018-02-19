@@ -20,7 +20,7 @@ use Illuminate\Database\Eloquent\Relations\MorphToMany;
  *
  * @property int                                                                    $id
  * @property string                                                                 $slug
- * @property array                                                                  $name
+ * @property array                                                                  $title
  * @property array                                                                  $description
  * @property int                                                                    $_lft
  * @property int                                                                    $_rgt
@@ -36,7 +36,7 @@ use Illuminate\Database\Eloquent\Relations\MorphToMany;
  * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Categories\Models\Category whereDescription($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Categories\Models\Category whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Categories\Models\Category whereLft($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Categories\Models\Category whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Categories\Models\Category whereTitle($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Categories\Models\Category whereParentId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Categories\Models\Category whereRgt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Categories\Models\Category whereSlug($value)
@@ -56,7 +56,7 @@ class Category extends Model
      */
     protected $fillable = [
         'slug',
-        'name',
+        'title',
         'description',
         NestedSet::LFT,
         NestedSet::RGT,
@@ -88,7 +88,7 @@ class Category extends Model
      * @var array
      */
     public $translatable = [
-        'name',
+        'title',
         'description',
     ];
 
@@ -118,7 +118,7 @@ class Category extends Model
 
         $this->setTable(config('rinvex.categories.tables.categories'));
         $this->setRules([
-            'name' => 'required|string|max:150',
+            'title' => 'required|string|max:150',
             'description' => 'nullable|string|max:10000',
             'slug' => 'required|alpha_dash|max:150|unique:'.config('rinvex.categories.tables.categories').',slug',
             NestedSet::LFT => 'sometimes|required|integer',
@@ -148,7 +148,7 @@ class Category extends Model
     {
         return SlugOptions::create()
                           ->doNotGenerateSlugsOnUpdate()
-                          ->generateSlugsFrom('name')
+                          ->generateSlugsFrom('title')
                           ->saveSlugsTo('slug');
     }
 
