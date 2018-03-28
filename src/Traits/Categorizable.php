@@ -275,7 +275,7 @@ trait Categorizable
         if (is_array($categories) && is_string(array_first($categories))) {
             $categories = app('rinvex.categories.category')->whereIn('slug', $categories)->get()->pluck('id');
         }
-        
+
         if ($categories instanceof Model) {
             return [$categories->getKey()];
         }
