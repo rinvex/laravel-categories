@@ -45,8 +45,10 @@ class CategoriesServiceProvider extends ServiceProvider
     public function boot()
     {
         // Load migrations
-        ! $this->app->runningInConsole() || $this->loadMigrationsFrom(__DIR__.'/../../database/migrations');
-
+        $runMigration = config('rinvex.categories.automatic-migration', true);
+        if ($this->app->runningInConsole() && $runMigration) {
+            $this->loadMigrationsFrom(__DIR__.'/../../database/migrations');
+        }
         // Publish Resources
         ! $this->app->runningInConsole() || $this->publishResources();
     }
