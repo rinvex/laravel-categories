@@ -128,7 +128,7 @@ $post->hasAnyCategories($categoryInstances);
 **Rinvex Categories** auto generates slugs and auto detect and insert default translation for you if not provided, but you still can pass it explicitly through normal eloquent `create` method, as follows:
 
 ```php
-app('rinvex.categories.category')->create(['title' => ['en' => 'My New Category'], 'slug' => 'custom-category-slug']);
+app('rinvex.categories.category')->create(['name' => ['en' => 'My New Category'], 'slug' => 'custom-category-slug']);
 ```
 
 > **Note:** Check **[Sluggable](https://github.com/spatie/laravel-sluggable)** package for further details.
@@ -190,24 +190,24 @@ Manage category translations with ease as follows:
 $category = app('rinvex.categories.category')->find(1);
 
 // Update title translations
-$category->setTranslation('title', 'en', 'New English Category Title')->save();
+$category->setTranslation('name', 'en', 'New English Category Title')->save();
 
 // Alternatively you can use default eloquent update
 $category->update([
-    'title' => [
+    'name' => [
         'en' => 'New Category',
         'ar' => 'تصنيف جديد',
     ],
 ]);
 
 // Get single category translation
-$category->getTranslation('title', 'en');
+$category->getTranslation('name', 'en');
 
 // Get all category translations
-$category->getTranslations('title');
+$category->getTranslations('name');
 
 // Get category title in default locale
-$category->title;
+$category->name;
 ```
 
 > **Note:** Check **[Translatable](https://github.com/spatie/laravel-translatable)** package for further details.
@@ -341,16 +341,16 @@ If it does, it creates more categories recursively, as follows:
 
 ```php
 $category = app('rinvex.categories.category')->create([
-    'title' => [
+    'name' => [
         'en' => 'New Category Title',
     ],
 
     'children' => [
         [
-            'title' => 'Bar',
+            'name' => 'Bar',
 
             'children' => [
-                [ 'title' => 'Baz' ],
+                [ 'name' => 'Baz' ],
             ],
         ],
     ],
@@ -366,8 +366,8 @@ Given the `$data` as an array of categories, you can build the tree as follows:
 
 ```php
 $data = [
-    [ 'id' => 1, 'title' => 'foo', 'children' => [ ... ] ],
-    [ 'title' => 'bar' ],
+    [ 'id' => 1, 'name' => 'foo', 'children' => [ ... ] ],
+    [ 'name' => 'bar' ],
 ];
 
 app('rinvex.categories.category')->rebuildTree($data, $delete);
@@ -586,7 +586,7 @@ $categories = app('rinvex.categories.category')->get()->toTree();
 
 $traverse = function ($categories, $prefix = '-') use (&$traverse) {
     foreach ($categories as $category) {
-        echo PHP_EOL.$prefix.' '.$category->title;
+        echo PHP_EOL.$prefix.' '.$category->name;
 
         $traverse($category->children, $prefix.'-');
     }

@@ -20,7 +20,7 @@ class CreateCategoriesTable extends Migration
             // Columns
             $table->increments('id');
             $table->string('slug');
-            $table->{$this->jsonable()}('title');
+            $table->{$this->jsonable()}('name');
             $table->{$this->jsonable()}('description')->nullable();
             NestedSet::columns($table);
             $table->timestamps();
