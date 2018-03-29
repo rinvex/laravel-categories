@@ -269,7 +269,7 @@ trait Categorizable
 
         // Find categories by slug, and get their IDs
         if (is_string($categories) || (is_array($categories) && is_string(array_first($categories)))) {
-            $categories = app('rinvex.categories.category')->whereIn('name', $categories)->get()->pluck('id');
+            $categories = app('rinvex.categories.category')->whereIn('slug', $categories)->get()->pluck('id');
         }
 
         if ($categories instanceof Model) {
