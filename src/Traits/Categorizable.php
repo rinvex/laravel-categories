@@ -81,7 +81,11 @@ trait Categorizable
     public static function bootCategorizable()
     {
         static::deleted(function (self $model) {
-            $model->categories()->detach();
+
+            // maybe the model was just soft deleted
+            if (!$model->exists) {
+                $model->categories()->detach();
+            }
         });
     }
 
