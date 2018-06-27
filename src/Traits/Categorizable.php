@@ -83,7 +83,7 @@ trait Categorizable
         static::deleted(function (self $model) {
 
             // maybe the model was just soft deleted
-            if (!$model->exists) {
+            if (! $model->exists) {
                 $model->categories()->detach();
             }
         });
