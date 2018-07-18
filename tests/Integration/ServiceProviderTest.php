@@ -27,7 +27,7 @@ class ServiceProviderTest extends TestCase
 
         $provider = new ReflectionClass(ServiceProvider::class);
 
-        $msg = "Expected class '$class' to be a service provider.";
+        $msg = "Expected class '{$class}' to be a service provider.";
 
         $this->assertTrue($reflection->isSubclassOf($provider), $msg);
     }
@@ -41,7 +41,7 @@ class ServiceProviderTest extends TestCase
         $method = $reflection->getMethod('provides');
         $method->setAccessible(true);
 
-        $msg = "Expected class '$class' to provide a valid list of services.";
+        $msg = "Expected class '{$class}' to provide a valid list of services.";
 
         $this->assertInternalType('array', $method->invoke(new $class(new Container())), $msg);
     }
