@@ -5,6 +5,16 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 
 
+## [v0.0.5] - 2018-09-22
+- Update travis php versions
+- Drop StyleCI multi-language support (paid feature now!)
+- Update composer dependencies
+- Prepare and tweak testing configuration
+- Update StyleCI options
+- Update PHPUnit options
+- Add category model factory
+- Update PHPUnit options
+
 ## [v0.0.4] - 2018-02-18
 - Update supplementary files
 - Update composer dependencies
@@ -35,6 +45,7 @@ This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 ## v0.0.1 - 2017-04-08
 - Rename package to "rinvex/categorizable" from "rinvex/category" based on 916d250
 
+[v0.0.5]: https://github.com/rinvex/categories/compare/v0.0.4...v0.0.5
 [v0.0.4]: https://github.com/rinvex/categories/compare/v0.0.3...v0.0.4
 [v0.0.3]: https://github.com/rinvex/categories/compare/v0.0.2...v0.0.3
 [v0.0.2]: https://github.com/rinvex/categories/compare/v0.0.1...v0.0.2

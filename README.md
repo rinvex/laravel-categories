@@ -189,8 +189,8 @@ Manage category translations with ease as follows:
 ```php
 $category = app('rinvex.categories.category')->find(1);
 
-// Update name translations
-$category->setTranslation('name', 'en', 'New English Category Name')->save();
+// Update title translations
+$category->setTranslation('name', 'en', 'New English Category Title')->save();
 
 // Alternatively you can use default eloquent update
 $category->update([
@@ -206,7 +206,7 @@ $category->getTranslation('name', 'en');
 // Get all category translations
 $category->getTranslations('name');
 
-// Get category name in default locale
+// Get category title in default locale
 $category->name;
 ```
 
@@ -262,8 +262,6 @@ if ($category->save()) {
 When you simply create a category, it will be appended to the end of the tree:
 
 ```php
-app('rinvex.categories.category')->createByName('Additional Category'); // Saved as root
-
 app('rinvex.categories.category')->create($attributes); // Saved as root
 
 $category = app('rinvex.categories.category')->fill($attributes);
@@ -344,7 +342,7 @@ If it does, it creates more categories recursively, as follows:
 ```php
 $category = app('rinvex.categories.category')->create([
     'name' => [
-        'en' => 'New Category Name',
+        'en' => 'New Category Title',
     ],
 
     'children' => [
@@ -375,7 +373,7 @@ $data = [
 app('rinvex.categories.category')->rebuildTree($data, $delete);
 ```
 
-There is an id specified for category with the name of `foo` which means that existing
+There is an id specified for category with the title of `foo` which means that existing
 category will be filled and saved. If category does not exists `ModelNotFoundException` is
 thrown. Also, this category has `children` specified which is also an array of categories;
 they will be processed in the same manner and saved as children of category `foo`.
