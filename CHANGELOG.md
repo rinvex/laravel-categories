@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 
 
+## [v1.0.0] - 2018-10-01
+- Enforce Consistency
+- Support Laravel 5.7+
+- Rename package to rinvex/laravel-categories
+
 ## [v0.0.5] - 2018-09-22
 - Update travis php versions
 - Drop StyleCI multi-language support (paid feature now!)
@@ -31,7 +36,7 @@ This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 
 ## [v0.0.3] - 2017-09-09
 - Fix many issues and apply many enhancements
-- Rename package rinvex/categories from rinvex/categorizable
+- Rename package rinvex/laravel-categories from rinvex/categorizable
 
 ## [v0.0.2] - 2017-06-29
 - Enforce consistency
@@ -45,7 +50,8 @@ This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 ## v0.0.1 - 2017-04-08
 - Rename package to "rinvex/categorizable" from "rinvex/category" based on 916d250
 
-[v0.0.5]: https://github.com/rinvex/categories/compare/v0.0.4...v0.0.5
-[v0.0.4]: https://github.com/rinvex/categories/compare/v0.0.3...v0.0.4
-[v0.0.3]: https://github.com/rinvex/categories/compare/v0.0.2...v0.0.3
-[v0.0.2]: https://github.com/rinvex/categories/compare/v0.0.1...v0.0.2
+[v1.0.0]: https://github.com/rinvex/laravel-categories/compare/v0.0.5...v1.0.0
+[v0.0.5]: https://github.com/rinvex/laravel-categories/compare/v0.0.4...v0.0.5
+[v0.0.4]: https://github.com/rinvex/laravel-categories/compare/v0.0.3...v0.0.4
+[v0.0.3]: https://github.com/rinvex/laravel-categories/compare/v0.0.2...v0.0.3
+[v0.0.2]: https://github.com/rinvex/laravel-categories/compare/v0.0.1...v0.0.2
