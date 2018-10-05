@@ -1,6 +1,7 @@
 {
-    "name": "rinvex/categories",
+    "name": "rinvex/laravel-categories",
     "description": "Rinvex Categories is a polymorphic Laravel package, for category management. You can categorize any eloquent model with ease, and utilize the power of Nested Sets, and the awesomeness of Sluggable, and Translatable models out of the box.",
+    "type": "library",
     "keywords": [
         "model",
         "laravel",
@@ -18,9 +19,9 @@
     "homepage": "https://rinvex.com",
     "support": {
         "email": "help@rinvex.com",
-        "issues": "https://github.com/rinvex/categories/issues",
-        "source": "https://github.com/rinvex/categories",
-        "docs": "https://github.com/rinvex/categories/blob/master/README.md"
+        "issues": "https://github.com/rinvex/laravel-categories/issues",
+        "source": "https://github.com/rinvex/laravel-categories",
+        "docs": "https://github.com/rinvex/laravel-categories/blob/master/README.md"
     },
     "authors": [
         {
@@ -36,7 +37,7 @@
         },
         {
             "name": "The Generous Laravel Community",
-            "homepage": "https://github.com/rinvex/categories/contributors"
+            "homepage": "https://github.com/rinvex/laravel-categories/contributors"
         }
     ],
     "require": {
@@ -45,14 +46,14 @@
         "illuminate/database": "~5.7.0",
         "illuminate/support": "~5.7.0",
         "kalnoy/nestedset": "^4.3.0",
-        "rinvex/cacheable": "dev-develop",
-        "rinvex/support": "dev-develop",
+        "rinvex/laravel-cacheable": "^1.0.0",
+        "rinvex/laravel-support": "v1.0.0",
         "spatie/laravel-sluggable": "^2.1.0",
         "spatie/laravel-translatable": "^2.1.0",
         "watson/validating": "^3.1.0"
     },
     "require-dev": {
-        "codedungeon/phpunit-result-printer": "^0.20.0",
+        "codedungeon/phpunit-result-printer": "^0.22.0",
         "illuminate/container": "~5.7.0",
         "phpunit/phpunit": "^7.0.0"
     },
@@ -69,15 +70,15 @@
             "Rinvex\\Categories\\Tests\\": "tests"
         }
     },
+    "scripts": {
+        "test": "vendor/bin/phpunit"
+    },
     "config": {
         "sort-packages": true,
         "preferred-install": "dist",
         "optimize-autoloader": true
     },
     "extra": {
-        "branch-alias": {
-            "dev-master": "1.0-dev"
-        },
         "laravel": {
             "providers": [
                 "Rinvex\\Categories\\Providers\\CategoriesServiceProvider"
