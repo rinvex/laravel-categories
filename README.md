@@ -2,19 +2,19 @@
 
 **Rinvex Categories** is a polymorphic Laravel package, for category management. You can categorize any eloquent model with ease, and utilize the power of **[Nested Sets](https://github.com/lazychaser/laravel-nestedset)**, and the awesomeness of **[Sluggable](https://github.com/spatie/laravel-sluggable)**, and **[Translatable](https://github.com/spatie/laravel-translatable)** models out of the box.
 
-[![Packagist](https://img.shields.io/packagist/v/rinvex/categories.svg?label=Packagist&style=flat-square)](https://packagist.org/packages/rinvex/categories)
-[![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/g/rinvex/categories.svg?label=Scrutinizer&style=flat-square)](https://scrutinizer-ci.com/g/rinvex/categories/)
-[![Code Climate](https://img.shields.io/codeclimate/github/rinvex/categories.svg?label=CodeClimate&style=flat-square)](https://codeclimate.com/github/rinvex/categories)
-[![Travis](https://img.shields.io/travis/rinvex/categories.svg?label=TravisCI&style=flat-square)](https://travis-ci.org/rinvex/categories)
+[![Packagist](https://img.shields.io/packagist/v/rinvex/laravel-categories.svg?label=Packagist&style=flat-square)](https://packagist.org/packages/rinvex/laravel-categories)
+[![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/g/rinvex/laravel-categories.svg?label=Scrutinizer&style=flat-square)](https://scrutinizer-ci.com/g/rinvex/laravel-categories/)
+[![Code Climate](https://img.shields.io/codeclimate/github/rinvex/laravel-categories.svg?label=CodeClimate&style=flat-square)](https://codeclimate.com/github/rinvex/laravel-categories)
+[![Travis](https://img.shields.io/travis/rinvex/laravel-categories.svg?label=TravisCI&style=flat-square)](https://travis-ci.org/rinvex/laravel-categories)
 [![StyleCI](https://styleci.io/repos/87599972/shield)](https://styleci.io/repos/87599972)
-[![License](https://img.shields.io/packagist/l/rinvex/categories.svg?label=License&style=flat-square)](https://github.com/rinvex/categories/blob/develop/LICENSE)
+[![License](https://img.shields.io/packagist/l/rinvex/laravel-categories.svg?label=License&style=flat-square)](https://github.com/rinvex/laravel-categories/blob/develop/LICENSE)
 
 
 ## Installation
 
 1. Install the package via composer:
     ```shell
-    composer require rinvex/categories
+    composer require rinvex/laravel-categories
     ```
 
 2. Execute migrations via the following command:
