@@ -63,14 +63,10 @@ class CategoriesServiceProvider extends ServiceProvider
         $timestamp = date('Y_m_d_His', time());
         
         $this->publishes([
-            realpath(
-                __DIR__ . '/../../database/migrations/create_categories_table.php'
-                    => database_path("/migrations/{$timestamp}_create_categories_table.php")
-            ),
-            realpath(
-                __DIR__ . '/../../database/migrations/create_categorizables_table.php'
-                    => database_path("/migrations/{$timestamp}_create_categorizables_table.php")
-            ),
+            realpath(__DIR__ . '/../../database/migrations/create_categories_table.php')
+                => database_path("/migrations/{$timestamp}_create_categories_table.php"),
+            realpath(__DIR__ . '/../../database/migrations/create_categorizables_table.php')
+                => database_path("/migrations/{$timestamp}_create_categorizables_table.php"),
         ], 'rinvex-categories-migrations');
     }
 
