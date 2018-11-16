@@ -60,6 +60,19 @@ class CategoriesServiceProvider extends ServiceProvider
     {
         $this->publishes([realpath(__DIR__.'/../../config/config.php') => config_path('rinvex.categories.php')], 'rinvex-categories-config');
         $this->publishes([realpath(__DIR__.'/../../database/migrations') => database_path('migrations')], 'rinvex-categories-migrations');
+        
+        $timestamp = date('Y_m_d_His', time());
+        
+        $this->publishes([
+            realpath(
+                __DIR__ . '/../../database/migrations/create_categories_table.php'
+                    => database_path("/migrations/{$timestamp}_create_categories_table.php")
+            ),
+            realpath(
+                __DIR__ . '/../../database/migrations/create_categorizables_table.php'
+                    => database_path("/migrations/{$timestamp}_create_categorizables_table.php")
+            ),
+        ], 'rinvex-categories-migrations');
     }
 
     /**
