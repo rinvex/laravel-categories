@@ -43,6 +43,6 @@ class ServiceProviderTest extends TestCase
 
         $msg = "Expected class '{$class}' to provide a valid list of services.";
 
-        $this->assertInternalType('array', $method->invoke(new $class(new Container())), $msg);
+        $this->assertIsArray($method->invoke(new $class(new Container())), $msg);
     }
 }
