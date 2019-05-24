@@ -17,4 +17,5 @@ return [
         'category' => \Rinvex\Categories\Models\Category::class,
     ],
 
+    'autoload_migrations' => true
 ];
