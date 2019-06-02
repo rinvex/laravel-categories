@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Rinvex\Categories\Console\Commands;
 
 use Illuminate\Console\Command;
-use Symfony\Component\Console\Helper\ProgressBar;
 
 class PublishCommand extends Command
 {
@@ -31,7 +30,7 @@ class PublishCommand extends Command
     public function handle(): void
     {
         $this->alert($this->description);
-        
+
         switch ($this->option('resource')) {
             case 'config':
                 $this->call('vendor:publish', ['--tag' => 'rinvex-categories-config', '--force' => $this->option('force')]);
