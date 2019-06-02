@@ -29,7 +29,18 @@ class RollbackCommand extends Command
      */
     public function handle(): void
     {
-        $this->warn($this->description);
-        $this->call('migrate:reset', ['--path' => 'vendor/rinvex/laravel-categories/database/migrations', '--force' => $this->option('force')]);
+        $this->alert($this->description);
+
+        if (file_exists($path = 'database/migrations/rinvex/laravel-categories')) {
+            $this->call('migrate:reset', [
+                '--step' => true,
+                '--path' => $path,
+                '--force' => $this->option('force'),
+            ]);
+        } else {
+            $this->warn('No migrations found! Consider publish them first: <fg=green>php artisan rinvex:publish:categories</>');
+        }
+
+        $this->line('');
     }
 }
