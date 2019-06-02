@@ -4,7 +4,6 @@
 
 [![Packagist](https://img.shields.io/packagist/v/rinvex/laravel-categories.svg?label=Packagist&style=flat-square)](https://packagist.org/packages/rinvex/laravel-categories)
 [![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/g/rinvex/laravel-categories.svg?label=Scrutinizer&style=flat-square)](https://scrutinizer-ci.com/g/rinvex/laravel-categories/)
-[![Code Climate](https://img.shields.io/codeclimate/github/rinvex/laravel-categories.svg?label=CodeClimate&style=flat-square)](https://codeclimate.com/github/rinvex/laravel-categories)
 [![Travis](https://img.shields.io/travis/rinvex/laravel-categories.svg?label=TravisCI&style=flat-square)](https://travis-ci.org/rinvex/laravel-categories)
 [![StyleCI](https://styleci.io/repos/87599972/shield)](https://styleci.io/repos/87599972)
 [![License](https://img.shields.io/packagist/l/rinvex/laravel-categories.svg?label=License&style=flat-square)](https://github.com/rinvex/laravel-categories/blob/develop/LICENSE)
