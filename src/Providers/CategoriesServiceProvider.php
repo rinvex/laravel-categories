@@ -6,12 +6,15 @@ namespace Rinvex\Categories\Providers;
 
 use Rinvex\Categories\Models\Category;
 use Illuminate\Support\ServiceProvider;
+use Rinvex\Support\Traits\ConsoleTools;
 use Rinvex\Categories\Console\Commands\MigrateCommand;
 use Rinvex\Categories\Console\Commands\PublishCommand;
 use Rinvex\Categories\Console\Commands\RollbackCommand;
 
 class CategoriesServiceProvider extends ServiceProvider
 {
+    use ConsoleTools;
+
     /**
      * The commands to be registered.
      *
@@ -36,7 +39,7 @@ class CategoriesServiceProvider extends ServiceProvider
         $categoryModel === Category::class || $this->app->alias('rinvex.categories.category', Category::class);
 
         // Register console commands
-        ! $this->app->runningInConsole() || $this->registerCommands();
+        ! $this->app->runningInConsole() || $this->registersCommands();
     }
 
     /**
@@ -44,36 +47,8 @@ class CategoriesServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        // Load migrations
-        ! $this->app->runningInConsole() || $this->loadMigrationsFrom(__DIR__.'/../../database/migrations');
-
         // Publish Resources
-        ! $this->app->runningInConsole() || $this->publishResources();
-    }
-
-    /**
-     * Publish resources.
-     *
-     * @return void
-     */
-    protected function publishResources(): void
-    {
-        $this->publishes([realpath(__DIR__.'/../../config/config.php') => config_path('rinvex.categories.php')], 'rinvex-categories-config');
-        $this->publishes([realpath(__DIR__.'/../../database/migrations') => database_path('migrations')], 'rinvex-categories-migrations');
-    }
-
-    /**
-     * Register console commands.
-     *
-     * @return void
-     */
-    protected function registerCommands(): void
-    {
-        // Register artisan commands
-        foreach ($this->commands as $key => $value) {
-            $this->app->singleton($value, $key);
-        }
-
-        $this->commands(array_values($this->commands));
+        ! $this->app->runningInConsole() || $this->publishesConfig('rinvex/laravel-categories');
+        ! $this->app->runningInConsole() || $this->publishesMigrations('rinvex/laravel-categories');
     }
 }
