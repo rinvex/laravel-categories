@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Rinvex\Categories\Traits;
 
+use Illuminate\Support\Arr;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
@@ -268,7 +269,7 @@ trait Categorizable
         }
 
         // Find categories by slug, and get their IDs
-        if (is_string($categories) || (is_array($categories) && is_string(array_first($categories)))) {
+        if (is_string($categories) || (is_array($categories) && is_string(Arr::first($categories)))) {
             $categories = app('rinvex.categories.category')->whereIn('slug', $categories)->get()->pluck('id');
         }
 
