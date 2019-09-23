@@ -46,6 +46,7 @@
         "illuminate/database": "^6.0.0",
         "illuminate/support": "^6.0.0",
         "kalnoy/nestedset": "^5.0.0",
+        "laravel/helpers": "^1.1.0",
         "rinvex/laravel-cacheable": "^3.0.0",
         "rinvex/laravel-support": "^3.0.0",
         "spatie/laravel-sluggable": "^2.2.0",
