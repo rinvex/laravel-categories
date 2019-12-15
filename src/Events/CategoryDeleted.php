@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Rinvex\Categorys\Events;
 
 use Illuminate\Broadcasting\Channel;
-use Rinvex\Categories\Models\Category;
 use Illuminate\Queue\SerializesModels;
+use Rinvex\Categories\Models\Category;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
 class CategoryDeleted implements ShouldBroadcast
