@@ -54,6 +54,6 @@ class CategoryDeleted implements ShouldBroadcast
      */
     protected function formatChannelName(): string
     {
-        return 'rinvex.categories.count';
+        return 'rinvex.categories.list';
     }
 }
