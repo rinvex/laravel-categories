@@ -10,8 +10,10 @@ use Spatie\Sluggable\SlugOptions;
 use Rinvex\Support\Traits\HasSlug;
 use Illuminate\Database\Eloquent\Model;
 use Rinvex\Cacheable\CacheableEloquent;
+use Rinvex\Categorys\Events\CategorySaved;
 use Rinvex\Support\Traits\HasTranslations;
 use Rinvex\Support\Traits\ValidatingTrait;
+use Rinvex\Categorys\Events\CategoryDeleted;
 use Rinvex\Categories\Builders\EloquentBuilder;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
 
@@ -80,6 +82,16 @@ class Category extends Model
     protected $observables = [
         'validating',
         'validated',
+    ];
+
+    /**
+     * The event map for the model.
+     *
+     * @var array
+     */
+    protected $dispatchesEvents = [
+        'saved' => CategorySaved::class,
+        'deleted' => CategoryDeleted::class,
     ];
 
     /**
