@@ -48,7 +48,7 @@ class CategoriesServiceProvider extends ServiceProvider
     public function boot()
     {
         // Publish Resources
-        ! $this->app->runningInConsole() || $this->publishesConfig('rinvex/laravel-categories');
-        ! $this->app->runningInConsole() || $this->publishesMigrations('rinvex/laravel-categories');
+        $this->publishesConfig('rinvex/laravel-categories');
+        $this->publishesMigrations('rinvex/laravel-categories');
     }
 }
