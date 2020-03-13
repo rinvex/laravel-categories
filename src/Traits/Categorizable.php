@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Rinvex\Categories\Traits;
 
+use Illuminate\Support\Arr;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Support\Arr;
 use Illuminate\Support\Collection as BaseCollection;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
 
@@ -45,9 +45,16 @@ trait Categorizable
      *
      * @return \Illuminate\Database\Eloquent\Relations\MorphToMany
      */
-    abstract public function morphToMany($related, $name, $table = null, $foreignPivotKey = null,
-                                         $relatedPivotKey = null, $parentKey = null,
-                                         $relatedKey = null, $inverse = false);
+    abstract public function morphToMany(
+        $related,
+        $name,
+        $table = null,
+        $foreignPivotKey = null,
+        $relatedPivotKey = null,
+        $parentKey = null,
+        $relatedKey = null,
+        $inverse = false
+    );
 
     /**
      * Get all attached categories to the model.
