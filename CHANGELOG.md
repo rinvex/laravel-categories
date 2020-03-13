@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 
 
+## [v3.0.5] - 2020-03-13
+- Tweak TravisCI config
+- Remove indirect composer dependency
+- Drop using global helpers
+- Update StyleCI config
+
 ## [v3.0.4] - 2020-01-06
 - Fix wrong namespace
 
