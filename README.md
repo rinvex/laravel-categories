@@ -47,6 +47,9 @@ Your categories are just normal [eloquent](https://laravel.com/docs/master/eloqu
 The API is intutive and very straightfarwad, so let's give it a quick look:
 
 ```php
+// Get all categories
+$allCategories = app('rinvex.categories.category')->first();
+
 // Get instance of your model
 $post = new \App\Models\Post::find();
 
