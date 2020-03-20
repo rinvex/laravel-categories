@@ -18,7 +18,7 @@ class CreateCategoriesTable extends Migration
     {
         Schema::create(config('rinvex.categories.tables.categories'), function (Blueprint $table) {
             // Columns
-            $table->increments('id');
+            $table->bigIncrements('id');
             $table->string('slug');
             $table->{$this->jsonable()}('name');
             $table->{$this->jsonable()}('description')->nullable();
