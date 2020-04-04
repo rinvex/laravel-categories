@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 
 
+## [v4.0.2] - 2020-04-04
+- Enforce consistent artisan command tag namespacing
+- Enforce consistent package namespace
+- Drop laravel/helpers usage as it's no longer used
+
 ## [v4.0.1] - 2020-03-20
 - Convert into bigInteger database fields
 - Add shortcut -f (force) for artisan publish commands
@@ -99,6 +104,7 @@ This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 ## v0.0.1 - 2017-04-08
 - Rename package to "rinvex/categorizable" from "rinvex/category" based on 916d250
 
+[v4.0.2]: https://github.com/rinvex/laravel-categories/compare/v4.0.1...v4.0.2
 [v4.0.1]: https://github.com/rinvex/laravel-categories/compare/v4.0.0...v4.0.1
 [v4.0.0]: https://github.com/rinvex/laravel-categories/compare/v3.0.5...v4.0.0
 [v3.0.5]: https://github.com/rinvex/laravel-categories/compare/v3.0.4...v3.0.5
