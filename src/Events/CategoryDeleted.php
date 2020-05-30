@@ -15,6 +15,18 @@ class CategoryDeleted implements ShouldBroadcast
     use SerializesModels;
     use InteractsWithSockets;
 
+    /**
+     * The name of the queue on which to place the event.
+     *
+     * @var string
+     */
+    public $broadcastQueue = 'events';
+
+    /**
+     * The model instance passed to this event.
+     *
+     * @var \Rinvex\Categories\Models\Category
+     */
     public $category;
 
     /**

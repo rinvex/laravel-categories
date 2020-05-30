@@ -130,7 +130,7 @@ class Category extends Model
 
         $this->setTable(config('rinvex.categories.tables.categories'));
         $this->setRules([
-            'name' => 'required|string|max:150',
+            'name' => 'required|string|strip_tags|max:150',
             'description' => 'nullable|string|max:10000',
             'slug' => 'required|alpha_dash|max:150|unique:'.config('rinvex.categories.tables.categories').',slug',
             NestedSet::LFT => 'sometimes|required|integer',
@@ -148,7 +148,7 @@ class Category extends Model
      */
     public function entries(string $class): MorphToMany
     {
-        return $this->morphedByMany($class, 'categorizable', config('rinvex.categories.tables.categorizables'), 'category_id', 'categorizable_id');
+        return $this->morphedByMany($class, 'categorizable', config('rinvex.categories.tables.categorizables'), 'category_id', 'categorizable_id', 'id', 'id');
     }
 
     /**
