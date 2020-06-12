@@ -13,7 +13,6 @@ use Rinvex\Support\Traits\HasTranslations;
 use Rinvex\Support\Traits\ValidatingTrait;
 use Rinvex\Categories\Events\CategorySaved;
 use Rinvex\Categories\Events\CategoryDeleted;
-use Rinvex\Categories\Builders\EloquentBuilder;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
 
 /**
@@ -160,13 +159,5 @@ class Category extends Model
                           ->doNotGenerateSlugsOnUpdate()
                           ->generateSlugsFrom('name')
                           ->saveSlugsTo('slug');
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function newEloquentBuilder($query)
-    {
-        return new EloquentBuilder($query);
     }
 }
