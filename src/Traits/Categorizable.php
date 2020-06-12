@@ -277,7 +277,7 @@ trait Categorizable
 
         // Find categories by their ids
         if (is_numeric($categories) || (is_array($categories) && is_numeric(Arr::first($categories)))) {
-            return (array) $categories;
+            return array_map('intval', (array) $categories);
         }
 
         // Find categories by their slugs
