@@ -657,7 +657,6 @@ app('rinvex.categories.category')->where('id', '=', $id)->delete();
 
 **That will break the tree!**
 
-`SoftDeletes` trait is supported, also on model level.
 
 ### Helper methods
 
