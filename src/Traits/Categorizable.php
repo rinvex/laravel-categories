@@ -275,9 +275,14 @@ trait Categorizable
             $categories = $categories->toArray();
         }
 
-        // Find categories by slug, and get their IDs
+        // Find categories by their ids
+        if (is_numeric($categories) || (is_array($categories) && is_numeric(Arr::first($categories)))) {
+            return array_map('intval', (array) $categories);
+        }
+
+        // Find categories by their slugs
         if (is_string($categories) || (is_array($categories) && is_string(Arr::first($categories)))) {
-            $categories = app('rinvex.categories.category')->whereIn('slug', $categories)->get()->pluck('id');
+            $categories = app('rinvex.categories.category')->whereIn('slug', (array) $categories)->get()->pluck('id');
         }
 
         if ($categories instanceof Model) {
