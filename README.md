@@ -150,7 +150,7 @@ You may encounter a situation where you need to get all models attached to certa
 
 ```php
 $category = app('rinvex.categories.category')->find(1);
-$category->entries(\App\Models\Post::class);
+$category->entries(\App\Models\Post::class)->get();
 ```
 
 #### Query scopes

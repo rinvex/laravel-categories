@@ -128,7 +128,7 @@ class Category extends Model
         $this->setTable(config('rinvex.categories.tables.categories'));
         $this->setRules([
             'name' => 'required|string|strip_tags|max:150',
-            'description' => 'nullable|string|max:10000',
+            'description' => 'nullable|string|max:32768',
             'slug' => 'required|alpha_dash|max:150|unique:'.config('rinvex.categories.tables.categories').',slug',
             NestedSet::LFT => 'sometimes|required|integer',
             NestedSet::RGT => 'sometimes|required|integer',
