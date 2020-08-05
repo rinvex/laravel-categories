@@ -52,7 +52,7 @@
         "illuminate/database": "^7.0.0",
         "illuminate/support": "^7.0.0",
         "kalnoy/nestedset": "^5.0.0",
-        "egolive/laravel-support": "dev-master",
+        "egolive/laravel-support": "dev-jarltech",
         "spatie/laravel-sluggable": "^2.2.0",
         "spatie/laravel-translatable": "^4.2.0"
     },
