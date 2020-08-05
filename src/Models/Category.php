@@ -6,6 +6,7 @@ namespace Rinvex\Categories\Models;
 
 use Kalnoy\Nestedset\NestedSet;
 use Kalnoy\Nestedset\NodeTrait;
+use Rinvex\Support\Traits\HasTranslatableSlug;
 use Spatie\Sluggable\SlugOptions;
 use Rinvex\Support\Traits\HasSlug;
 use Illuminate\Database\Eloquent\Model;
@@ -45,9 +46,9 @@ use Illuminate\Database\Eloquent\Relations\MorphToMany;
  */
 class Category extends Model
 {
-    use HasSlug;
     use NodeTrait;
     use HasTranslations;
+    use HasTranslatableSlug;
     use ValidatingTrait;
 
     /**
@@ -97,6 +98,7 @@ class Category extends Model
      * @var array
      */
     public $translatable = [
+        'slug',
         'name',
         'description',
     ];
@@ -160,4 +162,5 @@ class Category extends Model
                           ->generateSlugsFrom('name')
                           ->saveSlugsTo('slug');
     }
+
 }
