@@ -17,6 +17,7 @@ use Rinvex\Support\Traits\ValidatingTrait;
 use Rinvex\Categories\Events\CategorySaved;
 use Rinvex\Categories\Events\CategoryDeleted;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
+use App\Traits\SortableTrait;
 
 /**
  * Rinvex\Categories\Models\Category.
