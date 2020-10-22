@@ -1,3 +1,5 @@
+.idea
+.DS_Store
 /build
 /vendor
 /node_modules
