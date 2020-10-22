@@ -8,6 +8,9 @@
 [![StyleCI](https://styleci.io/repos/87599972/shield)](https://styleci.io/repos/87599972)
 [![License](https://img.shields.io/packagist/l/rinvex/laravel-categories.svg?label=License&style=flat-square)](https://github.com/rinvex/laravel-categories/blob/develop/LICENSE)
 
+## Fork notice
+
+Added translation support for slugs (**[Sluggable](https://github.com/spatie/laravel-sluggable)**)
 
 ## Installation
 
