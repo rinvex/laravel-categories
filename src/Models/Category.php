@@ -8,6 +8,8 @@ use Kalnoy\Nestedset\NestedSet;
 use Kalnoy\Nestedset\NodeTrait;
 use Rinvex\Support\Traits\HasTranslatableSlug;
 use Spatie\Sluggable\SlugOptions;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 use Rinvex\Support\Traits\HasSlug;
 use Illuminate\Database\Eloquent\Model;
 use Rinvex\Support\Traits\HasTranslations;
@@ -44,13 +46,24 @@ use Illuminate\Database\Eloquent\Relations\MorphToMany;
  * @method static \Illuminate\Database\Eloquent\Builder|\Rinvex\Categories\Models\Category whereUpdatedAt($value)
  * @mixin \Eloquent
  */
-class Category extends Model
+class Category extends Model implements HasMedia
 {
     use NodeTrait;
     use HasTranslations;
     use HasTranslatableSlug;
     use ValidatingTrait;
     use SortableTrait;
+    use InteractsWithMedia;
+
+    /**
+     *  Define single-file media library for logo
+     */
+    public function registerMediaCollections(): void
+    {
+        $this
+            ->addMediaCollection('categoryImage')
+            ->singleFile();
+    }
 
     /**
      * {@inheritdoc}
