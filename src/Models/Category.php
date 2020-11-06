@@ -73,6 +73,7 @@ class Category extends Model implements HasMedia
         'slug',
         'name',
         'description',
+        'type',
         NestedSet::LFT,
         NestedSet::RGT,
         NestedSet::PARENT_ID,

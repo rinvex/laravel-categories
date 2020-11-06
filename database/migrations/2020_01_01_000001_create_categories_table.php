@@ -23,7 +23,6 @@ class CreateCategoriesTable extends Migration
             $table->{$this->jsonable()}('name');
             $table->{$this->jsonable()}('description')->nullable();
             $table->string('type')->nullable();
-            $table->string('image')->nullable();
             $table->string('icon')->nullable();
             NestedSet::columns($table);
             $table->timestamps();
