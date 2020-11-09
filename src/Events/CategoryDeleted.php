@@ -12,7 +12,6 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
 class CategoryDeleted implements ShouldBroadcast
 {
-    use SerializesModels;
     use InteractsWithSockets;
 
     /**

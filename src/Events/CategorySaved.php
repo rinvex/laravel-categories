@@ -56,7 +56,7 @@ class CategorySaved implements ShouldBroadcast
      */
     public function broadcastAs()
     {
-        return 'rinvex.categories.deleted';
+        return 'rinvex.categories.saved';
     }
 
     /**
