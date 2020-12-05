@@ -11,8 +11,10 @@ use Rinvex\Support\Traits\HasSlug;
 use Illuminate\Database\Eloquent\Model;
 use Rinvex\Support\Traits\HasTranslations;
 use Rinvex\Support\Traits\ValidatingTrait;
-use Rinvex\Categories\Events\CategorySaved;
+use Rinvex\Categories\Events\CategoryCreated;
 use Rinvex\Categories\Events\CategoryDeleted;
+use Rinvex\Categories\Events\CategoryUpdated;
+use Rinvex\Categories\Events\CategoryRestored;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
 
 /**
@@ -87,8 +89,10 @@ class Category extends Model
      * @var array
      */
     protected $dispatchesEvents = [
-        'saved' => CategorySaved::class,
+        'created' => CategoryCreated::class,
+        'updated' => CategoryUpdated::class,
         'deleted' => CategoryDeleted::class,
+        'restored' => CategoryRestored::class,
     ];
 
     /**

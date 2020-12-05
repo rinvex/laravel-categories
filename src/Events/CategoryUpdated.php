@@ -4,16 +4,18 @@ declare(strict_types=1);
 
 namespace Rinvex\Categories\Events;
 
-use Illuminate\Broadcasting\Channel;
-use Illuminate\Queue\SerializesModels;
 use Rinvex\Categories\Models\Category;
+use Illuminate\Queue\SerializesModels;
+use Illuminate\Broadcasting\PrivateChannel;
+use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
-class CategorySaved implements ShouldBroadcast
+class CategoryUpdated implements ShouldBroadcast
 {
-    use SerializesModels;
     use InteractsWithSockets;
+    use SerializesModels;
+    use Dispatchable;
 
     /**
      * The name of the queue on which to place the event.
@@ -27,7 +29,7 @@ class CategorySaved implements ShouldBroadcast
      *
      * @var \Rinvex\Categories\Models\Category
      */
-    public $category;
+    public Category $model;
 
     /**
      * Create a new event instance.
@@ -36,17 +38,20 @@ class CategorySaved implements ShouldBroadcast
      */
     public function __construct(Category $category)
     {
-        $this->category = $category;
+        $this->model = $category;
     }
 
     /**
      * Get the channels the event should broadcast on.
      *
-     * @return \Illuminate\Broadcasting\Channel
+     * @return \Illuminate\Broadcasting\Channel|\Illuminate\Broadcasting\Channel[]
      */
     public function broadcastOn()
     {
-        return new Channel($this->formatChannelName());
+        return [
+            new PrivateChannel('rinvex.categories.categories.index'),
+            new PrivateChannel("rinvex.categories.categories.{$this->model->getRouteKey()}"),
+        ];
     }
 
     /**
@@ -56,16 +61,6 @@ class CategorySaved implements ShouldBroadcast
      */
     public function broadcastAs()
     {
-        return 'rinvex.categories.deleted';
-    }
-
-    /**
-     * Format channel name.
-     *
-     * @return string
-     */
-    protected function formatChannelName(): string
-    {
-        return 'rinvex.categories.list';
+        return 'category.updated';
     }
 }

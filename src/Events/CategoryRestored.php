@@ -5,14 +5,16 @@ declare(strict_types=1);
 namespace Rinvex\Categories\Events;
 
 use Rinvex\Categories\Models\Category;
+use Illuminate\Queue\SerializesModels;
 use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
-class CategoryDeleted implements ShouldBroadcast
+class CategoryRestored implements ShouldBroadcast
 {
     use InteractsWithSockets;
+    use SerializesModels;
     use Dispatchable;
 
     /**
@@ -36,7 +38,7 @@ class CategoryDeleted implements ShouldBroadcast
      */
     public function __construct(Category $category)
     {
-        $this->model = $category->withoutRelations();
+        $this->model = $category;
     }
 
     /**
@@ -59,6 +61,6 @@ class CategoryDeleted implements ShouldBroadcast
      */
     public function broadcastAs()
     {
-        return 'category.deleted';
+        return 'category.restored';
     }
 }
