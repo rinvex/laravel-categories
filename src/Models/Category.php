@@ -84,18 +84,6 @@ class Category extends Model
     ];
 
     /**
-     * The event map for the model.
-     *
-     * @var array
-     */
-    protected $dispatchesEvents = [
-        'created' => CategoryCreated::class,
-        'updated' => CategoryUpdated::class,
-        'deleted' => CategoryDeleted::class,
-        'restored' => CategoryRestored::class,
-    ];
-
-    /**
      * The attributes that are translatable.
      *
      * @var array
