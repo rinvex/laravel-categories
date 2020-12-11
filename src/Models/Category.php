@@ -72,8 +72,11 @@ class Category extends Model implements HasMedia
     protected $fillable = [
         'slug',
         'name',
+        'title',
         'description',
         'type',
+        'image',
+        'icon',
         NestedSet::LFT,
         NestedSet::RGT,
         NestedSet::PARENT_ID,
@@ -116,6 +119,7 @@ class Category extends Model implements HasMedia
     public $translatable = [
         'slug',
         'name',
+        'title',
         'description',
     ];
 
