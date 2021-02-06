@@ -11,25 +11,21 @@ use Rinvex\Support\Traits\HasSlug;
 use Illuminate\Database\Eloquent\Model;
 use Rinvex\Support\Traits\HasTranslations;
 use Rinvex\Support\Traits\ValidatingTrait;
-use Rinvex\Categories\Events\CategoryCreated;
-use Rinvex\Categories\Events\CategoryDeleted;
-use Rinvex\Categories\Events\CategoryUpdated;
-use Rinvex\Categories\Events\CategoryRestored;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
 
 /**
  * Rinvex\Categories\Models\Category.
  *
- * @property int                                                                    $id
- * @property string                                                                 $slug
- * @property array                                                                  $name
- * @property array                                                                  $description
- * @property int                                                                    $_lft
- * @property int                                                                    $_rgt
- * @property int                                                                    $parent_id
- * @property \Carbon\Carbon|null                                                    $created_at
- * @property \Carbon\Carbon|null                                                    $updated_at
- * @property \Carbon\Carbon|null                                                    $deleted_at
+ * @property int                 $id
+ * @property string              $slug
+ * @property array               $name
+ * @property array               $description
+ * @property int                 $_lft
+ * @property int                 $_rgt
+ * @property int                 $parent_id
+ * @property \Carbon\Carbon|null $created_at
+ * @property \Carbon\Carbon|null $updated_at
+ * @property \Carbon\Carbon|null $deleted_at
  * @property-read \Kalnoy\Nestedset\Collection|\Rinvex\Categories\Models\Category[] $children
  * @property-read \Rinvex\Categories\Models\Category|null                           $parent
  *
