@@ -73,6 +73,7 @@ class Category extends Model implements HasMedia
         'slug',
         'name',
         'title',
+        'subtitle',
         'description',
         'type',
         'image',
@@ -120,6 +121,7 @@ class Category extends Model implements HasMedia
         'slug',
         'name',
         'title',
+        'subtitle',
         'description',
     ];
 

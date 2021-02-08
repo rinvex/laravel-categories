@@ -22,6 +22,7 @@ class CreateCategoriesTable extends Migration
             $table->string('slug');
             $table->{$this->jsonable()}('name');
             $table->{$this->jsonable()}('title')->nullable();
+            $table->{$this->jsonable()}('subtitle')->nullable();
             $table->{$this->jsonable()}('description')->nullable();
             $table->string('type')->nullable();
             $table->string('image')->nullable();
