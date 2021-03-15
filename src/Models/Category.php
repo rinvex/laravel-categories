@@ -11,6 +11,7 @@ use Rinvex\Support\Traits\HasSlug;
 use Illuminate\Database\Eloquent\Model;
 use Rinvex\Support\Traits\HasTranslations;
 use Rinvex\Support\Traits\ValidatingTrait;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
 
 /**
@@ -45,6 +46,7 @@ class Category extends Model
 {
     use HasSlug;
     use NodeTrait;
+    use SoftDeletes;
     use HasTranslations;
     use ValidatingTrait;
 
