@@ -5,6 +5,10 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 
 
+## [v5.0.3] - 2021-05-07
+- Drop old MySQL versions support that doesn't support json columns
+- Utilize SoftDeletes
+
 ## [v5.0.2] - 2021-02-06
 - Simplify service provider model registration into IoC
 - Enable StyleCI risky mode
@@ -148,6 +152,7 @@ This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 ## v0.0.1 - 2017-04-08
 - Rename package to "rinvex/categorizable" from "rinvex/category" based on 916d250
 
+[v5.0.3]: https://github.com/rinvex/laravel-categories/compare/v5.0.2...v5.0.3
 [v5.0.2]: https://github.com/rinvex/laravel-categories/compare/v5.0.1...v5.0.2
 [v5.0.1]: https://github.com/rinvex/laravel-categories/compare/v5.0.0...v5.0.1
 [v5.0.0]: https://github.com/rinvex/laravel-categories/compare/v4.1.1...v5.0.0
