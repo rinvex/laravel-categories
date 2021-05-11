@@ -113,8 +113,6 @@ class Category extends Model
      */
     public function __construct(array $attributes = [])
     {
-        parent::__construct($attributes);
-
         $this->setTable(config('rinvex.categories.tables.categories'));
         $this->setRules([
             'name' => 'required|string|strip_tags|max:150',
@@ -124,6 +122,8 @@ class Category extends Model
             NestedSet::RGT => 'sometimes|required|integer',
             NestedSet::PARENT_ID => 'nullable|integer',
         ]);
+
+        parent::__construct($attributes);
     }
 
     /**
