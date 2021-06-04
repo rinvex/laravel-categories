@@ -45,7 +45,7 @@
         "illuminate/console": "^8.0.0 || ^9.0.0",
         "illuminate/database": "^8.0.0 || ^9.0.0",
         "illuminate/support": "^8.0.0 || ^9.0.0",
-        "kalnoy/nestedset": "^5.0.0",
+        "kalnoy/nestedset": "^6.0.0",
         "rinvex/laravel-support": "^5.0.0",
         "spatie/laravel-sluggable": "^3.0.0",
         "spatie/laravel-translatable": "^5.0.0"
