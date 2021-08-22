@@ -5,6 +5,10 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 
 
+## [v6.0.0] - 2021-08-22
+- Drop PHP v7 support, and upgrade rinvex package dependencies to next major version
+- Update composer dependencies
+
 ## [v5.0.6] - 2021-07-22
 - Upgrade composer dependency kalnoy/nestedset to v6
 
@@ -163,6 +167,7 @@ This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 ## v0.0.1 - 2017-04-08
 - Rename package to "rinvex/categorizable" from "rinvex/category" based on 916d250
 
+[v6.0.0]: https://github.com/rinvex/laravel-categories/compare/v5.0.6...v6.0.0
 [v5.0.6]: https://github.com/rinvex/laravel-categories/compare/v5.0.5...v5.0.6
 [v5.0.5]: https://github.com/rinvex/laravel-categories/compare/v5.0.4...v5.0.5
 [v5.0.4]: https://github.com/rinvex/laravel-categories/compare/v5.0.3...v5.0.4
