@@ -119,7 +119,7 @@ class Category extends Model
         $this->mergeRules([
             'name' => 'required|string|strip_tags|max:150',
             'description' => 'nullable|string|max:32768',
-            'slug' => 'required|alpha_dash|max:150|unique:'.config('rinvex.categories.tables.categories').',slug',
+            'slug' => 'required|alpha_dash|max:150|unique:'.config('rinvex.categories.models.category').',slug',
             NestedSet::LFT => 'sometimes|required|integer',
             NestedSet::RGT => 'sometimes|required|integer',
             NestedSet::PARENT_ID => 'nullable|integer',
