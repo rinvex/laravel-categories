@@ -53,5 +53,10 @@ class CategoriesServiceProvider extends ServiceProvider
         $this->publishesConfig('rinvex/laravel-categories');
         $this->publishesMigrations('rinvex/laravel-categories');
         ! $this->autoloadMigrations('rinvex/laravel-categories') || $this->loadMigrationsFrom(__DIR__.'/../../database/migrations');
+
+        // Map relations
+        Relation::morphMap([
+            'category' => config('rinvex.categories.models.category'),
+        ]);
     }
 }
