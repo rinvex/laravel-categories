@@ -7,6 +7,7 @@ namespace Rinvex\Categories\Providers;
 use Rinvex\Categories\Models\Category;
 use Illuminate\Support\ServiceProvider;
 use Rinvex\Support\Traits\ConsoleTools;
+use Illuminate\Database\Eloquent\Relations\Relation;
 use Rinvex\Categories\Console\Commands\MigrateCommand;
 use Rinvex\Categories\Console\Commands\PublishCommand;
 use Rinvex\Categories\Console\Commands\RollbackCommand;
@@ -21,9 +22,9 @@ class CategoriesServiceProvider extends ServiceProvider
      * @var array
      */
     protected $commands = [
-        MigrateCommand::class => 'command.rinvex.categories.migrate',
-        PublishCommand::class => 'command.rinvex.categories.publish',
-        RollbackCommand::class => 'command.rinvex.categories.rollback',
+        MigrateCommand::class,
+        PublishCommand::class,
+        RollbackCommand::class,
     ];
 
     /**
@@ -40,7 +41,7 @@ class CategoriesServiceProvider extends ServiceProvider
         ]);
 
         // Register console commands
-        $this->registerCommands($this->commands);
+        $this->commands($this->commands);
     }
 
     /**
@@ -52,5 +53,10 @@ class CategoriesServiceProvider extends ServiceProvider
         $this->publishesConfig('rinvex/laravel-categories');
         $this->publishesMigrations('rinvex/laravel-categories');
         ! $this->autoloadMigrations('rinvex/laravel-categories') || $this->loadMigrationsFrom(__DIR__.'/../../database/migrations');
+
+        // Map relations
+        Relation::morphMap([
+            'category' => config('rinvex.categories.models.category'),
+        ]);
     }
 }

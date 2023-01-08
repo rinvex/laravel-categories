@@ -44,14 +44,14 @@ Your categories are just normal [eloquent](https://laravel.com/docs/master/eloqu
 
 ### Manage your categorizable model
 
-The API is intutive and very straightfarwad, so let's give it a quick look:
+The API is intutive and very straightforward, so let's give it a quick look:
 
 ```php
 // Get all categories
-$allCategories = app('rinvex.categories.category')->first();
+$allCategories = app('rinvex.categories.category')->all();
 
 // Get instance of your model
-$post = new \App\Models\Post::find();
+$post = new \App\Models\Post::find(123);
 
 // Get attached categories collection
 $post->categories;
