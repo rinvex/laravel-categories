@@ -5,6 +5,9 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 
 
+## [v7.1.1] - 2023-06-29
+- Refactor resource loading and publishing
+
 ## [v7.1.0] - 2023-05-02
 - a8a7560: Add support for Laravel v11, and drop support for Laravel v9
 - 3fc3256: Upgrade spatie/laravel-translatable to v6.5 from v6.0
@@ -189,6 +192,7 @@ This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 ## v0.0.1 - 2017-04-08
 - Rename package to "rinvex/categorizable" from "rinvex/category" based on 916d250
 
+[v7.1.1]: https://github.com/rinvex/laravel-categories/compare/v7.1.0...v7.1.1
 [v7.1.0]: https://github.com/rinvex/laravel-categories/compare/v7.0.0...v7.1.0
 [v7.0.0]: https://github.com/rinvex/laravel-categories/compare/v6.1.2...v7.0.0
 [v6.1.2]: https://github.com/rinvex/laravel-categories/compare/v6.1.1...v6.1.2
