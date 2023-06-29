@@ -49,10 +49,11 @@ class CategoriesServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        // Publish Resources
-        $this->publishesConfig('rinvex/laravel-categories');
-        $this->publishesMigrations('rinvex/laravel-categories');
-        ! $this->autoloadMigrations('rinvex/laravel-categories') || $this->loadMigrationsFrom(__DIR__.'/../../database/migrations');
+        // Register paths to be published by the publish command.
+        $this->publishConfigFrom(__DIR__.'/../../config/config.php', 'rinvex/categories');
+        $this->publishMigrationsFrom(__DIR__.'/../../database/migrations', 'rinvex/categories');
+
+        ! $this->app['config']['rinvex.categories.autoload_migrations'] || $this->loadMigrationsFrom(__DIR__.'/../../database/migrations');
 
         // Map relations
         Relation::morphMap([
