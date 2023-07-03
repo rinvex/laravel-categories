@@ -48,7 +48,7 @@
         "kalnoy/nestedset": "^6.0.0",
         "rinvex/laravel-support": "^7.0.0",
         "spatie/laravel-sluggable": "^3.4.0",
-        "spatie/laravel-translatable": "^6.5.0"
+        "symfony/console": "^6.2.0"
     },
     "require-dev": {
         "codedungeon/phpunit-result-printer": "^0.32.0",
