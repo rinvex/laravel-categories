@@ -35,7 +35,7 @@ class MigrateCommand extends Command
 
         $path = config('rinvex.categories.autoload_migrations') ?
             'vendor/rinvex/laravel-categories/database/migrations' :
-            'database/migrations/rinvex/laravel-categories';
+            'database/migrations/rinvex/categories';
 
         if (file_exists($path)) {
             $this->call('migrate', [
